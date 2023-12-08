@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Auth/login.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Others/Category%20Page/categorey_page_widgets.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
 
@@ -77,7 +78,13 @@ class _CategoreyPageState extends State<CategoreyPage> {
           ),
           CustomButton(
             title: "Lets Get Started",
-            onPress: () {},
+            nextIcon: true,
+            onPress: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Login()),
+              );
+            },
             color: isSelected == 0 ? AppColors.supportiveGrey : AppColors.black,
           )
         ],

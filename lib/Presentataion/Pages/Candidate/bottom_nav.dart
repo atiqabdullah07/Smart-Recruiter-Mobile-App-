@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Candidate/candidate_dashboard.dart';
 
 class BNB extends StatelessWidget {
   const BNB({Key? key}) : super(key: key);
@@ -15,18 +16,7 @@ class BNB extends StatelessWidget {
         child: PersistentTabView(
           context,
           screens: [
-            Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    color: Colors.transparent,
-                    child: const Center(
-                      child: Text("Hello"),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            CandidateDashboard(),
             // const Search(),
             Center(
               child: Container(
@@ -45,12 +35,12 @@ class BNB extends StatelessWidget {
             ),
           ],
           items: [
-            buildPersistentBottomNavBarItem(Icons.home_filled),
-            buildPersistentBottomNavBarItem(Icons.account_circle_outlined),
-            buildPersistentBottomNavBarItem(Icons.settings),
-            buildPersistentBottomNavBarItem(Icons.settings),
+            customIcon(activeIcon: "Home_Filled", unActiveIcon: "home"),
+            customIcon(activeIcon: "jobs_filled", unActiveIcon: "jobs"),
+            customIcon(activeIcon: "user_filled", unActiveIcon: "user"),
+            customIcon(activeIcon: "Setting_Filled", unActiveIcon: "Setting"),
           ],
-          navBarStyle: NavBarStyle.style12,
+          navBarStyle: NavBarStyle.style6,
           bottomScreenMargin: 0,
           resizeToAvoidBottomInset: true,
           hideNavigationBarWhenKeyboardShows: true,
@@ -81,17 +71,15 @@ class BNB extends StatelessWidget {
     );
   }
 
-  PersistentBottomNavBarItem buildPersistentBottomNavBarItem(
-      IconData iconData) {
+  PersistentBottomNavBarItem customIcon(
+      {required String activeIcon, required String unActiveIcon}) {
     return PersistentBottomNavBarItem(
-      icon: Icon(iconData),
-      inactiveIcon: Icon(
-        iconData,
-        color: AppColors.white,
-        size: 25.r,
-      ),
-      title: '.',
-      activeColorSecondary: const Color(0xff192C62),
-    );
+        icon: SvgPicture.asset(
+          "assets/navbaricons/$activeIcon.svg",
+        ),
+        inactiveIcon: SvgPicture.asset(
+          "assets/navbaricons/$unActiveIcon.svg",
+        ),
+        activeColorSecondary: AppColors.white);
   }
 }

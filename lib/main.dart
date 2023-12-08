@@ -11,7 +11,8 @@ void main() {
         title: "Smart Recruiter",
         home: const OnBoarding(),
         theme: ThemeData(
-          textTheme: GoogleFonts.poppinsTextTheme(), // Preload Poppins font
+          textTheme: GoogleFonts.poppinsTextTheme(),
+          // Preload Poppins font
           // Other theme configurations
         ),
       );

@@ -9,11 +9,13 @@ class CustomButton extends StatelessWidget {
     required this.title,
     required this.onPress,
     this.color = AppColors.black,
+    this.nextIcon = false,
   });
 
   final String title;
   final VoidCallback onPress;
   Color color;
+  bool nextIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +39,13 @@ class CustomButton extends StatelessWidget {
             const SizedBox(
               width: 5,
             ),
-            const Icon(
-              Icons.arrow_forward_ios_outlined,
-              color: AppColors.white,
-              size: 20,
-            )
+            nextIcon == true
+                ? const Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    color: AppColors.white,
+                    size: 20,
+                  )
+                : const SizedBox(),
           ],
         ),
       ),

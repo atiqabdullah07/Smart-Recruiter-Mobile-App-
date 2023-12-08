@@ -64,6 +64,7 @@ class OnBoarding extends StatelessWidget {
           ),
           CustomButton(
             title: "Lets Get Started",
+            nextIcon: true,
             onPress: () {
               Navigator.push(
                 context,
