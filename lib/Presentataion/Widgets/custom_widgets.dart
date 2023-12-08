@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 
+// ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.title, required this.onPress});
+  CustomButton({
+    super.key,
+    required this.title,
+    required this.onPress,
+    this.color = AppColors.black,
+  });
 
   final String title;
   final VoidCallback onPress;
+  Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +23,7 @@ class CustomButton extends StatelessWidget {
         height: 60,
         width: 285,
         decoration: BoxDecoration(
-            color: AppColors.black, borderRadius: BorderRadius.circular(100)),
+            color: color, borderRadius: BorderRadius.circular(100)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

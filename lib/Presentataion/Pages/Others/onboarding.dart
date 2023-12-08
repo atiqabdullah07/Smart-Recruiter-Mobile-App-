@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
-import 'package:smart_recruiter/Presentataion/Pages/Others/categorey.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Others/Category%20Page/categorey.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
 
 class OnBoarding extends StatelessWidget {
