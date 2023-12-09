@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
@@ -19,13 +21,19 @@ class BNB extends StatelessWidget {
             CandidateDashboard(),
             // const Search(),
             Center(
-              child: Container(
-                height: 100,
-                width: 100,
-                color: Colors.yellow,
-                child: SvgPicture.asset(
-                  "assets/icons/user.svg", // Replace with the path to your SVG file
-                  color: Colors.blue, // Change the color if needed
+              child: GestureDetector(
+                onTap: () {
+                  print("Hello World");
+                  easyLoading();
+                },
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  color: Colors.yellow,
+                  child: SvgPicture.asset(
+                    "assets/icons/user.svg", // Replace with the path to your SVG file
+                    color: Colors.blue, // Change the color if needed
+                  ),
                 ),
               ),
             ),

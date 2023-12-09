@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 // Defining all the AppColors here
 class AppColors {
@@ -42,7 +43,33 @@ void toast(String message) {
 
 void easyLoading() {
   EasyLoading.show(
-      indicator: const CircularProgressIndicator(),
-      maskType: EasyLoadingMaskType.clear,
-      dismissOnTap: true);
+    indicator: const SizedBox(
+      height: 50,
+      width: 50,
+      child: const LoadingIndicator(
+          indicatorType: Indicator.ballScale,
+          colors: [AppColors.teal],
+          strokeWidth: 5,
+          backgroundColor: AppColors.green,
+          pathBackgroundColor: AppColors.blue),
+    ),
+    maskType: EasyLoadingMaskType.none,
+
+    dismissOnTap: true,
+    // Customize elevation
+  );
+}
+
+void loadingIndicator({required BuildContext context}) {
+  showDialog(
+      barrierColor: Colors.transparent.withOpacity(0),
+      context: context,
+      builder: (BuildContext context) {
+        return Center(
+          child: CircleAvatar(
+            backgroundColor: Colors.transparent.withOpacity(0),
+            radius: 10,
+          ),
+        );
+      });
 }
