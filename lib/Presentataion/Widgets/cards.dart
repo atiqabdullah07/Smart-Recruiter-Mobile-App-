@@ -48,14 +48,14 @@ class JobsCard2 extends StatelessWidget {
                 Text(
                   "Software Engineer",
                   style: TextStyle(
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
                       color: AppColors.black,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "Google, Full Time",
                   style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 12.sp,
                     color: AppColors.black,
                   ),
                 ),
@@ -103,13 +103,13 @@ class JobsCard1 extends StatelessWidget {
                   height: 30.h,
                   width: 90.w,
                   decoration: BoxDecoration(
-                    color: AppColors.white,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: Center(
                     child: Text(
                       "Full Time",
-                      style: TextStyle(color: AppColors.blue, fontSize: 12.sp),
+                      style: TextStyle(color: AppColors.blue, fontSize: 12),
                     ),
                   ),
                 ),
@@ -120,13 +120,13 @@ class JobsCard1 extends StatelessWidget {
                   height: 30.h,
                   width: 90.w,
                   decoration: BoxDecoration(
-                    color: AppColors.white,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: Center(
                     child: Text(
                       "Remote",
-                      style: TextStyle(color: AppColors.blue, fontSize: 12.sp),
+                      style: TextStyle(color: AppColors.blue, fontSize: 12),
                     ),
                   ),
                 ),
@@ -159,14 +159,14 @@ class JobsCard1 extends StatelessWidget {
                     Text(
                       "Software Engineer",
                       style: TextStyle(
-                          fontSize: 18.sp,
+                          fontSize: 16.sp,
                           color: AppColors.white,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
                       "Google",
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         color: AppColors.white,
                       ),
                     ),
@@ -174,46 +174,202 @@ class JobsCard1 extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
-              height: 5.h,
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        "assets/icons/Time.svg",
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: 8.w,
+                      ),
+                      Text(
+                        "10 min ago",
+                        style: TextStyle(fontSize: 14, color: AppColors.white),
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    child: Container(
+                      height: 40.h,
+                      width: 90.w,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Apply",
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: AppColors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RecruiterJobsCard extends StatelessWidget {
+  const RecruiterJobsCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 195,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.r),
+        gradient: LinearGradient(
+          colors: [
+            AppColors.blue,
+            Color.lerp(AppColors.blue, AppColors.green, 0.3)!,
+            Color.lerp(AppColors.blue, AppColors.green, 0.6)!,
+            AppColors.green,
+          ],
+          stops: const [0.0, 0.5, 0.7, 1.0],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: 18.h,
+          left: 18.w,
+          right: 18.w,
+        ),
+        child: Column(
+          children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      "assets/icons/Time.svg",
-                      height: 20,
-                    ),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    Text(
-                      "10 min ago",
-                      style: TextStyle(fontSize: 14.sp, color: AppColors.white),
-                    ),
-                  ],
-                ),
                 Container(
-                  height: 40.h,
+                  height: 30.h,
                   width: 90.w,
                   decoration: BoxDecoration(
-                    color: AppColors.white,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: Center(
                     child: Text(
-                      "Apply",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: AppColors.black,
-                      ),
+                      "Full Time",
+                      style: TextStyle(color: AppColors.blue, fontSize: 12),
                     ),
                   ),
+                ),
+                SizedBox(
+                  width: 15.w,
+                ),
+                Container(
+                  height: 30.h,
+                  width: 90.w,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Remote",
+                      style: TextStyle(color: AppColors.blue, fontSize: 12),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 13.h,
+            ),
+            Row(
+              children: [
+                Container(
+                  height: 63.h,
+                  width: 63.w,
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Image.asset(
+                    "assets/google.png",
+                    scale: 1.2,
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Software Engineer",
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          color: AppColors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "Google",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ],
                 )
               ],
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        "assets/icons/Time.svg",
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: 8.w,
+                      ),
+                      Text(
+                        "10 min ago",
+                        style: TextStyle(fontSize: 14, color: AppColors.white),
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    child: Container(
+                      height: 40.h,
+                      width: 120.w,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "View Status",
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: AppColors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
         ),

@@ -6,8 +6,8 @@ import 'package:smart_recruiter/Presentataion/Pages/Candidate/job_details.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/wasy.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/cards.dart';
 
-class CandidateDashboard extends StatelessWidget {
-  const CandidateDashboard({super.key});
+class RecruiterDashboard extends StatelessWidget {
+  const RecruiterDashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +23,6 @@ class CandidateDashboard extends StatelessWidget {
                 Row(
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const JobDetails()),
-                        );
-                      },
                       child: CircleAvatar(
                         radius: 40.r,
                         backgroundColor: AppColors.blue,
@@ -56,7 +49,7 @@ class CandidateDashboard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "Alexa Jhons",
+                          "Google",
                           style: TextStyle(
                               color: AppColors.black,
                               fontSize: 20,
@@ -70,7 +63,7 @@ class CandidateDashboard extends StatelessWidget {
                   height: 10.h,
                 ),
                 Text(
-                  "Discover Your \nFavourite Job",
+                  "Discover Best \nCandidate",
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -79,60 +72,11 @@ class CandidateDashboard extends StatelessWidget {
                 SizedBox(
                   height: 10.h,
                 ),
-                Container(
-                    height: 60.h,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(100),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.15), // Shadow color
-                          spreadRadius: 0, // Spread radius
-                          blurRadius: 20, // Blur radius
-                          offset: const Offset(
-                              0, 0), // Offset in x and y directions
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 25.w),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(
-                                      color: AppColors.supportiveGrey
-                                          .withOpacity(0.5),
-                                      fontSize: 16),
-                                  hintText: "Search your dream job..."),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 55,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            color: AppColors.blue,
-                            borderRadius: BorderRadius.circular(200),
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              "assets/icons/Search.svg",
-                              height: 22.h,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
                 SizedBox(
                   height: 15,
                 ),
                 headingRow(
-                    title: "Popular jobs",
+                    title: "My Jobs",
                     onPress: () {
                       Navigator.push(
                         context,
@@ -142,25 +86,7 @@ class CandidateDashboard extends StatelessWidget {
                 SizedBox(
                   height: 10.h,
                 ),
-                const JobsCard1(),
-                SizedBox(
-                  height: 20.h,
-                ),
-                headingRow(title: "All jobs", onPress: () {}),
-                SizedBox(
-                  height: 10.h,
-                ),
-                SizedBox(
-                  height: 200.h,
-                  child: ListView.builder(
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return const JobsCard2();
-                      }),
-                ),
-                SizedBox(
-                  height: 100.h,
-                )
+                const RecruiterJobsCard(),
               ],
             ),
           ),

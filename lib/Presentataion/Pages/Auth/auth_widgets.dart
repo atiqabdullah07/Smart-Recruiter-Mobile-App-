@@ -4,15 +4,15 @@ import 'package:smart_recruiter/Constants/app_constants.dart';
 
 Widget googleLogin({required String title}) {
   return Container(
-    height: 60,
+    height: 60.h,
     width: 285,
     decoration: BoxDecoration(
         color: AppColors.teal.withOpacity(0.1),
         borderRadius: BorderRadius.circular(100)),
     child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
       Container(
-        height: 60,
-        width: 60,
+        height: 60.h,
+        width: 60.w,
         decoration: BoxDecoration(
           color: AppColors.teal.withOpacity(0.1),
           borderRadius: BorderRadius.circular(100),
@@ -31,7 +31,7 @@ Widget googleLogin({required String title}) {
         title,
         style: TextStyle(
           color: AppColors.teal,
-          fontSize: 15.sp,
+          fontSize: 15,
         ),
       ),
     ]),

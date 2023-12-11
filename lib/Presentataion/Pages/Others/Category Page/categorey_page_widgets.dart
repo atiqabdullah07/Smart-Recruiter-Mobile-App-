@@ -43,7 +43,7 @@ Widget categoreyCard(
             Text(
               title,
               style: TextStyle(
-                  fontSize: 18.sp,
+                  fontSize: 18,
                   color: isSelected == true ? AppColors.blue : AppColors.black),
             )
           ],

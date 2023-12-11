@@ -3,9 +3,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smart_recruiter/Presentataion/Pages/Candidate/job_details.dart';
 
 import 'package:smart_recruiter/Presentataion/Pages/Others/onboarding.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Recruiter/job_post.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +14,7 @@ void main() {
     builder: (context, child) {
       return MaterialApp(
         title: "Smart Recruiter",
-        home: const JobDetails(),
+        home: const JobPost(),
         builder: EasyLoading.init(),
         theme: ThemeData(
           textTheme: GoogleFonts.poppinsTextTheme(),

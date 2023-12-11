@@ -5,10 +5,10 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
-import 'package:smart_recruiter/Presentataion/Pages/Candidate/candidate_dashboard.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Recruiter/recruiter_dashboard.dart';
 
-class BNB extends StatelessWidget {
-  const BNB({Key? key}) : super(key: key);
+class RecruiterMainScreen extends StatelessWidget {
+  const RecruiterMainScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +17,7 @@ class BNB extends StatelessWidget {
         child: PersistentTabView(
           context,
           screens: [
-            CandidateDashboard(),
-            // const Search(),
+            RecruiterDashboard(),
             Center(
               child: GestureDetector(
                 onTap: () {

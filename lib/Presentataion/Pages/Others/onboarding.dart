@@ -21,12 +21,12 @@ class OnBoarding extends StatelessWidget {
             "assets/onboardingPic 1.png",
             width: 330.h,
           )),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: 20.h,
           ),
           Text(
             "Find Your",
-            style: TextStyle(fontSize: 30.sp),
+            style: TextStyle(fontSize: 30),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -35,8 +35,7 @@ class OnBoarding extends StatelessWidget {
                 children: [
                   Text(
                     "Dream",
-                    style:
-                        TextStyle(fontSize: 35.sp, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                   ),
                   Image.asset(
                     "assets/shape01.png",
@@ -46,18 +45,18 @@ class OnBoarding extends StatelessWidget {
               ),
               Text(
                 " job!",
-                style: TextStyle(fontSize: 35.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
               ),
             ],
           ),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: 20.h,
           ),
           Text(
             "Discover countless job openings and \ndelve into company insights.",
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
-                fontSize: 14.sp, color: AppColors.supportiveGrey),
+                fontSize: 14, color: AppColors.supportiveGrey),
           ),
           SizedBox(
             height: 100.h,

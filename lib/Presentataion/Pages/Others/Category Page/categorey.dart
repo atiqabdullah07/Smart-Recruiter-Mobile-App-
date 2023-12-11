@@ -34,14 +34,14 @@ class _CategoreyPageState extends State<CategoreyPage> {
             "Continue As?",
             style: TextStyle(
                 color: AppColors.black,
-                fontSize: 28.sp,
+                fontSize: 28,
                 fontWeight: FontWeight.bold),
           ),
           Text(
             "Select a Category to begin.",
             style: TextStyle(
               color: AppColors.supportiveGrey,
-              fontSize: 14.sp,
+              fontSize: 14,
             ),
           ),
           SizedBox(
