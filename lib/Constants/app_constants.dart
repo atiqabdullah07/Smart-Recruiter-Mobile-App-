@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 
 // Defining all the AppColors here
 class AppColors {
@@ -66,4 +65,13 @@ void loadingIndicator({required BuildContext context}) {
           ),
         );
       });
+}
+
+bool isValidEmail(String email) {
+  // Define a regular expression for email validation
+  final RegExp emailRegExp = RegExp(
+    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+  );
+  // Test the email against the regular expression
+  return emailRegExp.hasMatch(email);
 }

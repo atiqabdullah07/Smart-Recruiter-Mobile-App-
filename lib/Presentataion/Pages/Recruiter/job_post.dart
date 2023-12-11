@@ -1,10 +1,16 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_recruiter/Business%20Logic/Post%20Job/post_job_bloc.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
 
 class JobPost extends StatelessWidget {
-  const JobPost({super.key});
+  JobPost({super.key});
+  TextEditingController jobTitleController = TextEditingController();
+  TextEditingController experienceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,123 +25,295 @@ class JobPost extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 25.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            textField(title: "Job Title", hintText: "Enter Job Title"),
-            SizedBox(
-              height: 20.h,
-            ),
-            textField(
-                title: "Experience Required",
-                hintText: "Enter Required Exprience"),
-            SizedBox(
-              height: 30.h,
-            ),
-            Text(
-              "Job Type",
-              style: TextStyle(fontSize: 18, color: AppColors.black),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Row(
-              children: [
-                jobButton(title: "Full Time"),
-                SizedBox(
-                  width: 15.w,
+      body: BlocConsumer<PostJobBloc, PostJobState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          switch (state.runtimeType) {
+            case PostJobInitial:
+              final jobTypeState = state as PostJobInitial;
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    textField(
+                        controller: jobTitleController,
+                        title: "Job Title",
+                        hintText: "Enter Job Title"),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    textField(
+                        controller: experienceController,
+                        title: "Experience Required",
+                        hintText: "Enter Required Exprience"),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Text(
+                      "Job Type",
+                      style: TextStyle(fontSize: 18, color: AppColors.black),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Row(
+                      children: [
+                        jobButton(
+                            title: "Full Time",
+                            isSelected:
+                                jobTypeState == "Full Time" ? true : false,
+                            onPress: () {
+                              print("helo");
+                              context
+                                  .read<PostJobBloc>()
+                                  .add(JobTypeClickedEvent("Full Time"));
+                            }),
+                        SizedBox(
+                          width: 15.w,
+                        ),
+                        jobButton(
+                            title: "Part Time",
+                            isSelected: false,
+                            onPress: () {}),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15.sp,
+                    ),
+                    Row(
+                      children: [
+                        jobButton(
+                            title: "On Site",
+                            isSelected: false,
+                            onPress: () {}),
+                        SizedBox(
+                          width: 15.w,
+                        ),
+                        jobButton(
+                            title: "Remote", isSelected: true, onPress: () {}),
+                        SizedBox(
+                          width: 15.w,
+                        ),
+                        jobButton(
+                            title: "Hybrid", isSelected: false, onPress: () {}),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Text(
+                      "Job Descripeion",
+                      style: TextStyle(fontSize: 18, color: AppColors.black),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Container(
+                      height: 70.h,
+                      decoration: BoxDecoration(
+                        color: AppColors.backgroundColor,
+                        border: Border.all(
+                          width: 1,
+                          color: AppColors.supportiveGrey.withOpacity(0.5),
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(children: [
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        Icon(
+                          Icons.add,
+                          size: 35,
+                          color: AppColors.supportiveGrey.withOpacity(0.8),
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Text(
+                          "Upload Job Description File",
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              color: AppColors.supportiveGrey.withOpacity(0.8)),
+                        ),
+                      ]),
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Center(
+                      child: CustomButton(title: "Post Job", onPress: () {}),
+                    ),
+                  ],
                 ),
-                jobButton(title: "Part Time"),
-              ],
-            ),
-            SizedBox(
-              height: 15.sp,
-            ),
-            Row(
-              children: [
-                jobButton(title: "On Site"),
-                SizedBox(
-                  width: 15.w,
+              );
+            case JobTypeSelected:
+              final jobTypeState = state as JobTypeSelected;
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    textField(
+                        controller: jobTitleController,
+                        title: "Job Title",
+                        hintText: "Enter Job Title"),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    textField(
+                        controller: experienceController,
+                        title: "Experience Required",
+                        hintText: "Enter Required Exprience"),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Text(
+                      "Job Type",
+                      style: TextStyle(fontSize: 18, color: AppColors.black),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Row(
+                      children: [
+                        jobButton(
+                            title: "Full Time",
+                            isSelected: jobTypeState.jobType == "Full Time"
+                                ? true
+                                : false,
+                            onPress: () {
+                              print("helo");
+                              context
+                                  .read<PostJobBloc>()
+                                  .add(JobTypeClickedEvent("Full Time"));
+                            }),
+                        SizedBox(
+                          width: 15.w,
+                        ),
+                        jobButton(
+                            title: "Part Time",
+                            isSelected: false,
+                            onPress: () {}),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15.sp,
+                    ),
+                    Row(
+                      children: [
+                        jobButton(
+                            title: "On Site",
+                            isSelected: false,
+                            onPress: () {}),
+                        SizedBox(
+                          width: 15.w,
+                        ),
+                        jobButton(
+                            title: "Remote", isSelected: true, onPress: () {}),
+                        SizedBox(
+                          width: 15.w,
+                        ),
+                        jobButton(
+                            title: "Hybrid", isSelected: false, onPress: () {}),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Text(
+                      "Job Descripeion",
+                      style: TextStyle(fontSize: 18, color: AppColors.black),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Container(
+                      height: 70.h,
+                      decoration: BoxDecoration(
+                        color: AppColors.backgroundColor,
+                        border: Border.all(
+                          width: 1,
+                          color: AppColors.supportiveGrey.withOpacity(0.5),
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(children: [
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        Icon(
+                          Icons.add,
+                          size: 35,
+                          color: AppColors.supportiveGrey.withOpacity(0.8),
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Text(
+                          "Upload Job Description File",
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              color: AppColors.supportiveGrey.withOpacity(0.8)),
+                        ),
+                      ]),
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Center(
+                      child: CustomButton(title: "Post Job", onPress: () {}),
+                    ),
+                  ],
                 ),
-                jobButton(title: "Remote"),
-                SizedBox(
-                  width: 15.w,
-                ),
-                jobButton(title: "Hybrid"),
-              ],
-            ),
-            SizedBox(
-              height: 30.h,
-            ),
-            Text(
-              "Job Descripeion",
-              style: TextStyle(fontSize: 18, color: AppColors.black),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Container(
-              height: 70.h,
-              decoration: BoxDecoration(
-                color: AppColors.backgroundColor,
-                border: Border.all(
-                  width: 1,
-                  color: AppColors.supportiveGrey.withOpacity(0.5),
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(children: [
-                SizedBox(
-                  width: 20.w,
-                ),
-                Icon(
-                  Icons.add,
-                  size: 35,
-                  color: AppColors.supportiveGrey.withOpacity(0.8),
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                Text(
-                  "Upload Job Description File",
-                  style: TextStyle(
-                      fontSize: 16.sp,
-                      color: AppColors.supportiveGrey.withOpacity(0.8)),
-                ),
-              ]),
-            ),
-            SizedBox(
-              height: 30.h,
-            ),
-            Center(
-              child: CustomButton(title: "Post Job", onPress: () {}),
-            ),
-          ],
+              );
+
+            default:
+              return const Center(
+                child: Text("Default State"),
+              );
+          }
+        },
+      ),
+    );
+  }
+
+  Widget jobButton(
+      {required String title,
+      required bool isSelected,
+      required VoidCallback onPress}) {
+    return GestureDetector(
+      onTap: onPress,
+      child: Container(
+        height: 40.h,
+        width: 100.w,
+        decoration: BoxDecoration(
+          border: Border.all(
+              width: 1,
+              color: isSelected == true
+                  ? AppColors.blue
+                  : AppColors.supportiveGrey.withOpacity(0.5)),
+          color:
+              isSelected == true ? AppColors.blue : AppColors.backgroundColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(
+                color: isSelected == true ? Colors.white : AppColors.black,
+                fontSize: 15),
+          ),
         ),
       ),
     );
   }
 
-  Container jobButton({required String title}) {
-    return Container(
-      height: 40.h,
-      width: 100.w,
-      decoration: BoxDecoration(
-        color: AppColors.blue,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyle(color: Colors.white, fontSize: 15),
-        ),
-      ),
-    );
-  }
-
-  Column textField({required String title, required String hintText}) {
+  Column textField(
+      {required String title,
+      required String hintText,
+      required TextEditingController controller}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -147,6 +325,7 @@ class JobPost extends StatelessWidget {
           height: 10.h,
         ),
         TextField(
+          controller: controller,
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle:

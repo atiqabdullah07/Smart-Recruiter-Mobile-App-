@@ -21,11 +21,8 @@ class RecruiterLoginBloc
       LoginClickEvent event, Emitter<RecruiterLoginState> emit) async {
     final AuthRepo repo = AuthRepo();
 
-    var isSignIn = await repo.signInUser(
-        recruiter: Recruiter(
-      email: event.email,
-      password: event.password,
-    ));
+    var isSignIn = await repo.logInRecruiter(
+        recruiter: Recruiter(email: event.email, password: event.password));
 
     if (isSignIn == true) {
       emit(LoginSuccessState());
