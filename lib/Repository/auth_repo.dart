@@ -82,7 +82,6 @@ class AuthRepo {
         var res = await response.stream.bytesToString();
         Map<String, dynamic> responseData = jsonDecode(res);
         String message = responseData['message'];
-        print("Bad Request Responce: ${message}");
         toast(message);
       }
     } catch (error) {

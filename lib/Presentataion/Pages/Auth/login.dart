@@ -7,7 +7,7 @@ import 'package:smart_recruiter/Business%20Logic/bloc/recruiter_login_bloc.dart'
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Auth/auth_widgets.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Auth/signup.dart';
-import 'package:smart_recruiter/Presentataion/Pages/Recruiter/recruiter_dashboard.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Recruiter/recruiter_bnb.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_textfield.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
 
@@ -23,7 +23,8 @@ class Login extends StatelessWidget {
         body: BlocConsumer<RecruiterLoginBloc, RecruiterLoginState>(
           listener: (context, state) {
             if (state is LoginSuccessState) {
-              print("Login Successfully");
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => RecruiterMainScreen()));
             }
           },
           builder: (context, state) {

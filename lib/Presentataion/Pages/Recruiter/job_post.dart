@@ -11,6 +11,7 @@ class JobPost extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.backgroundColor,
         title: Text(
           "New Job",
           style: TextStyle(
