@@ -33,9 +33,9 @@ Widget horizontalSpace(double width) {
 void toast(String message) {
   Fluttertoast.showToast(
       msg: message,
-      toastLength: Toast.LENGTH_SHORT,
+      toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
+      timeInSecForIosWeb: 3,
       backgroundColor: AppColors.blue,
       textColor: AppColors.white,
       fontSize: 16.sp);
@@ -43,15 +43,9 @@ void toast(String message) {
 
 void easyLoading() {
   EasyLoading.show(
-    indicator: const SizedBox(
-      height: 50,
-      width: 50,
-      child: const LoadingIndicator(
-          indicatorType: Indicator.ballScale,
-          colors: [AppColors.teal],
-          strokeWidth: 5,
-          backgroundColor: AppColors.green,
-          pathBackgroundColor: AppColors.blue),
+    indicator: const CircularProgressIndicator(
+      backgroundColor: AppColors.green,
+      color: AppColors.teal,
     ),
     maskType: EasyLoadingMaskType.none,
 

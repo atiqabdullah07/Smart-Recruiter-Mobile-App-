@@ -8,12 +8,14 @@ import 'package:smart_recruiter/Constants/app_constants.dart';
 class CustomTextField extends StatefulWidget {
   final String hintText;
   final String svgPath;
+  final TextEditingController controller;
 
-  const CustomTextField({
-    Key? key,
-    required this.hintText,
-    required this.svgPath,
-  }) : super(key: key);
+  const CustomTextField(
+      {Key? key,
+      required this.hintText,
+      required this.svgPath,
+      required this.controller})
+      : super(key: key);
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -37,6 +39,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         });
       },
       child: TextField(
+        controller: widget.controller,
         focusNode: _focusNode,
         decoration: InputDecoration(
           labelText: widget.hintText,

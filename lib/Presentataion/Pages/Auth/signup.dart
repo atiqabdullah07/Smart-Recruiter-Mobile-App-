@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
@@ -7,7 +9,11 @@ import 'package:smart_recruiter/Presentataion/Widgets/custom_textfield.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
 
 class SignUp extends StatelessWidget {
-  const SignUp({super.key});
+  SignUp({super.key});
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,25 +52,29 @@ class SignUp extends StatelessWidget {
                 SizedBox(
                   height: 40.h,
                 ),
-                const CustomTextField(
+                CustomTextField(
+                    controller: usernameController,
                     hintText: "Enter your Full Name",
                     svgPath: "assets/icons/user.svg"),
                 SizedBox(
                   height: 10.h,
                 ),
-                const CustomTextField(
+                CustomTextField(
+                    controller: emailController,
                     hintText: "Enter your Email",
                     svgPath: "assets/icons/sms.svg"),
                 SizedBox(
                   height: 10.h,
                 ),
-                const CustomTextField(
+                CustomTextField(
+                    controller: passwordController,
                     hintText: "Enter your Password",
                     svgPath: "assets/icons/Lock.svg"),
                 SizedBox(
                   height: 10.h,
                 ),
-                const CustomTextField(
+                CustomTextField(
+                    controller: confirmPasswordController,
                     hintText: "Confirm Password",
                     svgPath: "assets/icons/Lock.svg"),
                 SizedBox(

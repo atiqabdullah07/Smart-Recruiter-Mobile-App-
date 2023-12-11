@@ -44,6 +44,9 @@ dependencies:
   flutter_svg: ^2.0.9
   loading_indicator: ^3.1.1
   flutter_spinkit: ^5.2.0
+  http: ^1.1.2
+  flutter_secure_storage: ^9.0.0
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:
