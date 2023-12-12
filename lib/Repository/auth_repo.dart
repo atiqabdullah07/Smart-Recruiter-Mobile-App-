@@ -24,7 +24,7 @@ class AuthRepo {
         'Content-Type': 'application/json',
       };
       var request = http.Request(
-          'POST', Uri.parse('http://localhost:3000/api/v1/recruiter/register'));
+          'POST', Uri.parse('http://127.0.0.1:3000/api/v1/recruiter/register'));
       request.body = json.encode({
         "email": recruiter.email,
         "password": recruiter.password,
@@ -57,8 +57,8 @@ class AuthRepo {
         'Content-Type': 'application/json',
       };
 
-      var request = http.Request(
-          'POST', Uri.parse('http://localhost:3000/api/v1/recruiter/login'));
+      var request = http.Request('POST',
+          Uri.parse('http://192.168.45.116:3000/api/v1/recruiter/login'));
       request.body = json
           .encode({"email": recruiter.email, "password": recruiter.password});
       request.headers.addAll(headers);

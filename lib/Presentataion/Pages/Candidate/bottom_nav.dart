@@ -22,25 +22,11 @@ class BNB extends StatelessWidget {
             CandidateDashboard(),
             // const Search(),
             Center(
-              child: GestureDetector(
-                onTap: () {
-                  print("Hello World");
-                  easyLoading();
-                },
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  color: Colors.yellow,
-                  child: SvgPicture.asset(
-                    "assets/icons/user.svg", // Replace with the path to your SVG file
-                    color: Colors.blue, // Change the color if needed
-                  ),
-                ),
-              ),
+              child: const Text("All Jobs"),
             ),
-            Center(child: Image.asset("assets/logo.png")),
+            Center(child: const Text("Profile")),
             const Center(
-              child: Text("Hello 3"),
+              child: Text("Settings"),
             ),
           ],
           items: [

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Auth/login.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Candidate/bottom_nav.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Candidate/candidate_dashboard.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Others/Category%20Page/categorey_page_widgets.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
 
@@ -80,10 +82,17 @@ class _CategoreyPageState extends State<CategoreyPage> {
             title: "Lets Get Started",
             nextIcon: true,
             onPress: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Login()),
-              );
+              if (isSelected == 1) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BNB()),
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
+              }
             },
             color: isSelected == 0 ? AppColors.supportiveGrey : AppColors.black,
           )

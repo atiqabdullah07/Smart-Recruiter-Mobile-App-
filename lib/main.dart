@@ -7,8 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_recruiter/Business%20Logic/Post%20Job/post_job_bloc.dart';
 import 'package:smart_recruiter/Business%20Logic/Recruiter%20Login/recruiter_login_bloc.dart';
 import 'package:smart_recruiter/Business%20Logic/Recruiter%20Signup/recruiter_signup_bloc.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Others/onboarding.dart';
 
-import 'package:smart_recruiter/Presentataion/Pages/Auth/login.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Recruiter/job_post.dart';
 
 void main() {
@@ -29,8 +29,9 @@ void main() {
           ),
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: "Smart Recruiter",
-          home: JobPost(),
+          home: OnBoarding(),
           builder: EasyLoading.init(),
           theme: ThemeData(
             textTheme: GoogleFonts.poppinsTextTheme(),

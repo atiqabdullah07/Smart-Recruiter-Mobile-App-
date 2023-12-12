@@ -23,13 +23,7 @@ class CandidateDashboard extends StatelessWidget {
                 Row(
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const JobDetails()),
-                        );
-                      },
+                      onTap: () {},
                       child: CircleAvatar(
                         radius: 40.r,
                         backgroundColor: AppColors.blue,
@@ -142,7 +136,15 @@ class CandidateDashboard extends StatelessWidget {
                 SizedBox(
                   height: 10.h,
                 ),
-                const JobsCard1(),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const JobDetails()),
+                      );
+                    },
+                    child: const JobsCard1()),
                 SizedBox(
                   height: 20.h,
                 ),
