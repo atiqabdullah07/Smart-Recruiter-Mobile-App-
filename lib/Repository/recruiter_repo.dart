@@ -1,11 +1,59 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
+import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Data/Models/job.dart';
+
 import 'package:smart_recruiter/Repository/auth_repo.dart';
 
 class RecruiterRepo {
-  Future<void> uploadJob() async {
+  List<Job1> myJobs = [];
+
+  String companyName = '';
+
+  Future<String> uploadFile(String filePath) async {
+    print("API Called");
+    String? url = '';
     try {
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('http://$hostName:3000/api/v1/uploadFile'),
+      );
+
+      // Add file to the request
+      var file = await http.MultipartFile.fromPath('filename', filePath);
+      request.files.add(file);
+
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        var res = await response.stream.bytesToString();
+        Map<String, dynamic> responseData = jsonDecode(res);
+        String message = responseData['url'];
+        url = message;
+
+        return url;
+      } else {
+        print('File upload failed. Status code: ${response.statusCode}');
+        print(await response.stream.bytesToString());
+      }
+    } catch (error) {
+      print('Error during file upload: $error');
+    }
+    return url!;
+  }
+
+  Future<bool> uploadJob(
+      {required String title,
+      required String experienceLevel,
+      required String jobType,
+      required String filePath,
+      required List skills}) async {
+    bool isJobPosted = false;
+    try {
+      print("Upload Job Called");
+      easyLoading();
       var jwtToken = await decodeTokken();
 
       var headers = {
@@ -13,24 +61,92 @@ class RecruiterRepo {
         'Cookie': 'token=$jwtToken'
       };
 
+      String url = await uploadFile(filePath);
+
       var request = http.Request(
-          'POST', Uri.parse('http://localhost:3000/api/v1/job/post'));
+          'POST', Uri.parse('http://$hostName:3000/api/v1/job/post'));
       request.body = json.encode({
-        "title": "New Job 4",
-        "experienceLevel": "1 year of Experience",
-        "jobType": "req.body.jobType"
+        "title": title,
+        "experienceLevel": experienceLevel,
+        "jobType": jobType,
+        "skills": skills,
+        "descriptionFile": url
       });
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         print(await response.stream.bytesToString());
+        EasyLoading.dismiss();
+        isJobPosted = true;
+        toast("Job Posted Successfully");
+      } else {
+        print(response.reasonPhrase);
+        EasyLoading.dismiss();
+      }
+    } catch (error) {
+      EasyLoading.dismiss();
+      log("Upload post catched Error: $error");
+    }
+    return isJobPosted;
+  }
+
+  Future<void> getRecruiterProfile() async {
+    try {
+      print("Recruiter Profile Called");
+      print("object");
+      var jwtToken = await decodeTokken();
+
+      var headers = {
+        'Content-Type': 'application/json',
+        'Cookie': 'token=$jwtToken'
+      };
+      var request = http.Request(
+          'GET', Uri.parse('http://$hostName:3000/api/v1/recruiter/myprofile'));
+
+      request.headers.addAll(headers);
+      print("object");
+
+      http.StreamedResponse response = await request.send();
+
+      print(response);
+
+      if (response.statusCode == 200) {
+        var res = await response.stream.bytesToString();
+        // print(res);
+        Map<String, dynamic> responseData = jsonDecode(res);
+
+        companyName = responseData['recruiter']['name'];
+
+        print(responseData['recruiter']['jobs']);
+
+        for (int i = 0; i < responseData['recruiter']['jobs'].length; i++) {
+          print("loop");
+          myJobs.add(
+            Job1(
+              title: responseData['recruiter']['jobs'][i]['title'],
+              descriptionFile: responseData['recruiter']['jobs'][i]
+                  ['descriptionFile'],
+              jobType: responseData['recruiter']['jobs'][i]['jobType'],
+              experienceLevel: responseData['recruiter']['jobs'][i]
+                  ['experienceLevel'],
+              owner: responseData['recruiter']['jobs'][i]['owner'],
+              createdAt:
+                  responseData['recruiter']['jobs'][i]['createdAt'].toString(),
+            ),
+          );
+        }
+        // var myAllJobs = responseData['recruiter']['jobs'][1];
+        // print(myAllJobs);
+
+        print("All of my Jobs: ${myJobs[1].title}");
+        //print("My jobs$myAllJobs");
       } else {
         print(response.reasonPhrase);
       }
     } catch (error) {
-      log("Upload post catched Error: $error");
+      print("Get Profile Error: $error");
     }
   }
 }

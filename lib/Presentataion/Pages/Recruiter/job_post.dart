@@ -1,11 +1,13 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_recruiter/Business%20Logic/Post%20Job/post_job_bloc.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
+import 'package:smart_recruiter/Repository/recruiter_repo.dart';
 
 class JobPost extends StatefulWidget {
   JobPost({super.key});
@@ -19,8 +21,35 @@ class _JobPostState extends State<JobPost> {
 
   TextEditingController experienceController = TextEditingController();
 
+  TextEditingController addSkillController = TextEditingController();
   String jobType = "Full Time";
   String jobLocation = "On Site";
+  String? pickedFilePath;
+  var Skills = [];
+  FilePickerResult? result = null;
+  String? _pickedFileName;
+  Future<void> _pickFiles() async {
+    try {
+      result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf', 'doc', 'docx'],
+      );
+
+      if (result != null) {
+        setState(() {
+          _pickedFileName = result?.files.single.name;
+          pickedFilePath = result?.files.single.path; // Store the file name
+        });
+        print("Picked files: $_pickedFileName");
+        print("Picked files: ${result?.files}");
+      } else {
+        // User canceled the picker
+        print("User canceled file picking");
+      }
+    } catch (e) {
+      print("Error picking files: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +86,81 @@ class _JobPostState extends State<JobPost> {
                           hintText: "Enter Required Exprience"),
                       SizedBox(
                         height: 30.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Skills",
+                            style:
+                                TextStyle(fontSize: 18, color: AppColors.black),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('Add Skill'),
+                                      content: TextField(
+                                        controller: addSkillController,
+                                      ),
+                                      actions: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              Skills.add(
+                                                  addSkillController.text);
+                                            });
+                                          },
+                                          child: Container(
+                                            height: 40,
+                                            width: 80,
+                                            decoration: BoxDecoration(
+                                                color: AppColors.blue,
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Center(
+                                                child: Text(
+                                              "Add",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
+                            child: Icon(Icons.add),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        height: Skills.length * 61.h,
+                        child: ListView.builder(
+                            itemCount: Skills.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: EdgeInsets.only(bottom: 10),
+                                height: 50.h,
+                                decoration: BoxDecoration(
+                                  color: AppColors.backgroundColor,
+                                  border: Border.all(
+                                      width: 0.5,
+                                      color: AppColors.supportiveGrey
+                                          .withOpacity(0.5)),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(child: Text(Skills[index])),
+                              );
+                            }),
+                      ),
+                      SizedBox(
+                        height: 10.h,
                       ),
                       Text(
                         "Job Type",
@@ -138,43 +242,76 @@ class _JobPostState extends State<JobPost> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Container(
-                        height: 70.h,
-                        decoration: BoxDecoration(
-                          color: AppColors.backgroundColor,
-                          border: Border.all(
-                            width: 1,
-                            color: AppColors.supportiveGrey.withOpacity(0.5),
+                      GestureDetector(
+                        onTap: () {
+                          _pickFiles();
+                        },
+                        child: Container(
+                          height: 70.h,
+                          decoration: BoxDecoration(
+                            color: AppColors.backgroundColor,
+                            border: Border.all(
+                              width: 1,
+                              color: AppColors.supportiveGrey.withOpacity(0.5),
+                            ),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          borderRadius: BorderRadius.circular(10),
+                          child: Row(children: [
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            Icon(
+                              Icons.add,
+                              size: 35,
+                              color: AppColors.supportiveGrey.withOpacity(0.8),
+                            ),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Text(
+                              _pickedFileName == null
+                                  ? "Upload Job Description File"
+                                  : _pickedFileName!,
+                              style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: AppColors.supportiveGrey
+                                      .withOpacity(0.8)),
+                            ),
+                          ]),
                         ),
-                        child: Row(children: [
-                          SizedBox(
-                            width: 20.w,
-                          ),
-                          Icon(
-                            Icons.add,
-                            size: 35,
-                            color: AppColors.supportiveGrey.withOpacity(0.8),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Text(
-                            "Upload Job Description File",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                color:
-                                    AppColors.supportiveGrey.withOpacity(0.8)),
-                          ),
-                        ]),
                       ),
                       SizedBox(
                         height: 30.h,
                       ),
                       Center(
-                        child: CustomButton(title: "Post Job", onPress: () {}),
+                        child: CustomButton(
+                            title: "Post Job",
+                            onPress: () async {
+                              print(pickedFilePath);
+                              RecruiterRepo repo = RecruiterRepo();
+
+                              bool isJobPosted = await repo.uploadJob(
+                                  filePath: pickedFilePath!,
+                                  title: jobTitleController.text,
+                                  experienceLevel: experienceController.text,
+                                  jobType: jobType,
+                                  skills: Skills);
+
+                              print("Posted Job: $isJobPosted");
+
+                              if (isJobPosted == true) {
+                                setState(() {
+                                  jobTitleController.clear();
+                                  experienceController.clear();
+                                  _pickedFileName = null;
+                                  Skills = [];
+                                });
+                              }
+                            }),
                       ),
+                      SizedBox(
+                        height: 100,
+                      )
                     ],
                   ),
                 );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:smart_recruiter/Data/Models/job.dart';
 
 // Defining all the AppColors here
 class AppColors {
@@ -15,6 +16,7 @@ class AppColors {
   static const backgroundColor = Color(0xffffffff);
 }
 
+String hostName = '192.168.45.131';
 // Defining these spaces so that we don't have to use SizedBox again and again
 Widget verticalSpace(double height) {
   return SizedBox(
@@ -33,7 +35,7 @@ void toast(String message) {
   Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
+      gravity: ToastGravity.TOP,
       timeInSecForIosWeb: 3,
       backgroundColor: AppColors.blue,
       textColor: AppColors.white,
@@ -75,3 +77,12 @@ bool isValidEmail(String email) {
   // Test the email against the regular expression
   return emailRegExp.hasMatch(email);
 }
+
+Job1 myJob = Job1(
+  title: "title",
+  descriptionFile: "title",
+  jobType: "title",
+  experienceLevel: "title",
+  owner: "title",
+  createdAt: "title",
+);

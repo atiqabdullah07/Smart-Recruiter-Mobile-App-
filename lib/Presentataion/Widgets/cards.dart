@@ -224,11 +224,24 @@ class JobsCard1 extends StatelessWidget {
 }
 
 class RecruiterJobsCard extends StatelessWidget {
-  const RecruiterJobsCard({super.key});
+  const RecruiterJobsCard(
+      {super.key,
+      required this.jobTitle,
+      required this.jobType,
+      required this.companyName,
+      required this.date,
+      required this.companyLogo});
+
+  final String jobTitle;
+  final String jobType;
+  final String companyName;
+  final String date;
+  final String companyLogo;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 10.h),
       height: 195,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30.r),
@@ -263,7 +276,7 @@ class RecruiterJobsCard extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      "Full Time",
+                      jobType,
                       style: TextStyle(color: AppColors.blue, fontSize: 12),
                     ),
                   ),
@@ -280,7 +293,7 @@ class RecruiterJobsCard extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      "Remote",
+                      jobType,
                       style: TextStyle(color: AppColors.blue, fontSize: 12),
                     ),
                   ),
@@ -296,12 +309,13 @@ class RecruiterJobsCard extends StatelessWidget {
                   height: 63.h,
                   width: 63.w,
                   decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(
+                      companyLogo,
+                      scale: 1.2,
+                    )),
                     color: AppColors.white,
                     borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Image.asset(
-                    "assets/google.png",
-                    scale: 1.2,
                   ),
                 ),
                 SizedBox(
@@ -312,14 +326,14 @@ class RecruiterJobsCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Software Engineer",
+                      jobTitle,
                       style: TextStyle(
                           fontSize: 16.sp,
                           color: AppColors.white,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "Google",
+                      companyName,
                       style: TextStyle(
                         fontSize: 14,
                         color: AppColors.white,
@@ -344,7 +358,7 @@ class RecruiterJobsCard extends StatelessWidget {
                         width: 8.w,
                       ),
                       Text(
-                        "10 min ago",
+                        date,
                         style: TextStyle(fontSize: 14, color: AppColors.white),
                       ),
                     ],

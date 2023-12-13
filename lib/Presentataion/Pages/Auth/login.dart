@@ -11,9 +11,16 @@ import 'package:smart_recruiter/Presentataion/Pages/Recruiter/recruiter_bnb.dart
 import 'package:smart_recruiter/Presentataion/Widgets/custom_textfield.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
 
   @override

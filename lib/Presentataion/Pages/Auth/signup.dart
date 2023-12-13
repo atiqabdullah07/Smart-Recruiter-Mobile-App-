@@ -11,11 +11,20 @@ import 'package:smart_recruiter/Presentataion/Pages/Auth/login.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_textfield.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   SignUp({super.key});
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   TextEditingController usernameController = TextEditingController();
+
   TextEditingController emailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
   TextEditingController confirmPasswordController = TextEditingController();
 
   @override
