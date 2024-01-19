@@ -57,7 +57,7 @@ class _RecruiterDashboardState extends State<RecruiterDashboard> {
                                 radius: 38.r,
                                 backgroundColor: Colors.green,
                                 backgroundImage: const NetworkImage(
-                                    "https://abouteball.com/wp-content/uploads/2015/03/photodune-4276142-smiling-portraits-m1.jpg"),
+                                    "https://pluspng.com/img-png/google-logo-png-revised-google-logo-1600.png"),
                               ),
                             ),
                           ),

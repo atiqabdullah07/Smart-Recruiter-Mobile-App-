@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:smart_recruiter/Constants/app_constants.dart';
@@ -48,46 +49,54 @@ class RecruiterRepo {
       {required String title,
       required String experienceLevel,
       required String jobType,
+      required String jobLocation,
       required String filePath,
-      required List skills}) async {
+      required List skills,
+      required BuildContext context}) async {
     bool isJobPosted = false;
-    try {
-      print("Upload Job Called");
-      easyLoading();
-      var jwtToken = await decodeTokken();
+    if (title.isEmpty) {
+      showError(title: 'Please Enter a job title', context: context);
+    } else if (experienceLevel.isEmpty) {
+      showError(title: 'Enter required exprience', context: context);
+    } else {
+      try {
+        print("Upload Job Called");
+        easyLoading();
+        var jwtToken = await decodeTokken();
 
-      var headers = {
-        'Content-Type': 'application/json',
-        'Cookie': 'token=$jwtToken'
-      };
+        var headers = {
+          'Content-Type': 'application/json',
+          'Cookie': 'token=$jwtToken'
+        };
 
-      String url = await uploadFile(filePath);
+        String url = await uploadFile(filePath);
 
-      var request = http.Request(
-          'POST', Uri.parse('http://$hostName:3000/api/v1/job/post'));
-      request.body = json.encode({
-        "title": title,
-        "experienceLevel": experienceLevel,
-        "jobType": jobType,
-        "skills": skills,
-        "descriptionFile": url
-      });
-      request.headers.addAll(headers);
+        var request = http.Request(
+            'POST', Uri.parse('http://$hostName:3000/api/v1/job/post'));
+        request.body = json.encode({
+          "title": title,
+          "experienceLevel": experienceLevel,
+          "jobType": "$jobType,$jobLocation",
+          "skills": skills,
+          "descriptionFile": url
+        });
+        request.headers.addAll(headers);
 
-      http.StreamedResponse response = await request.send();
+        http.StreamedResponse response = await request.send();
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        print(await response.stream.bytesToString());
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          print(await response.stream.bytesToString());
+          EasyLoading.dismiss();
+          isJobPosted = true;
+          showSuccess(title: 'Job Posted Successfully', context: context);
+        } else {
+          print(response.reasonPhrase);
+          EasyLoading.dismiss();
+        }
+      } catch (error) {
         EasyLoading.dismiss();
-        isJobPosted = true;
-        toast("Job Posted Successfully");
-      } else {
-        print(response.reasonPhrase);
-        EasyLoading.dismiss();
+        log("Upload post catched Error: $error");
       }
-    } catch (error) {
-      EasyLoading.dismiss();
-      log("Upload post catched Error: $error");
     }
     return isJobPosted;
   }

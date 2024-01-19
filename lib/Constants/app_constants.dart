@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:smart_recruiter/Data/Models/job.dart';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 // Defining all the AppColors here
 class AppColors {
@@ -16,7 +19,7 @@ class AppColors {
   static const backgroundColor = Color(0xffffffff);
 }
 
-String hostName = '192.168.45.131';
+String hostName = '192.168.201.205';
 // Defining these spaces so that we don't have to use SizedBox again and again
 Widget verticalSpace(double height) {
   return SizedBox(
@@ -86,3 +89,17 @@ Job1 myJob = Job1(
   owner: "title",
   createdAt: "title",
 );
+
+void showError({required String title, required BuildContext context}) {
+  MotionToast.error(
+    description: Text(title),
+    position: MotionToastPosition.top,
+  ).show(context);
+}
+
+void showSuccess({required String title, required BuildContext context}) {
+  MotionToast.success(
+    description: Text(title),
+    position: MotionToastPosition.top,
+  ).show(context);
+}

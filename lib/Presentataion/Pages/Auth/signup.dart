@@ -73,6 +73,7 @@ class _SignUpState extends State<SignUp> {
                       height: 40.h,
                     ),
                     CustomTextField(
+                        obsecureText: false,
                         controller: usernameController,
                         hintText: "Enter your Full Name",
                         svgPath: "assets/icons/user.svg"),
@@ -80,6 +81,7 @@ class _SignUpState extends State<SignUp> {
                       height: 10.h,
                     ),
                     CustomTextField(
+                        obsecureText: false,
                         controller: emailController,
                         hintText: "Enter your Email",
                         svgPath: "assets/icons/sms.svg"),
@@ -87,6 +89,7 @@ class _SignUpState extends State<SignUp> {
                       height: 10.h,
                     ),
                     CustomTextField(
+                        obsecureText: true,
                         controller: passwordController,
                         hintText: "Enter your Password",
                         svgPath: "assets/icons/Lock.svg"),
@@ -94,6 +97,7 @@ class _SignUpState extends State<SignUp> {
                       height: 10.h,
                     ),
                     CustomTextField(
+                        obsecureText: true,
                         controller: confirmPasswordController,
                         hintText: "Confirm Password",
                         svgPath: "assets/icons/Lock.svg"),
@@ -108,7 +112,8 @@ class _SignUpState extends State<SignUp> {
                                 usernameController.text,
                                 emailController.text,
                                 passwordController.text,
-                                confirmPasswordController.text));
+                                confirmPasswordController.text,
+                                context));
                       },
                     ),
                     SizedBox(

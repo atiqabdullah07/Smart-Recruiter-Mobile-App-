@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:smart_recruiter/Data/Models/recruiter.dart';
 import 'package:smart_recruiter/Repository/auth_repo.dart';
@@ -22,7 +23,8 @@ class RecruiterLoginBloc
     final AuthRepo repo = AuthRepo();
 
     var isSignIn = await repo.logInRecruiter(
-        recruiter: Recruiter(email: event.email, password: event.password));
+        recruiter: Recruiter(email: event.email, password: event.password),
+        context: event.context);
 
     if (isSignIn == true) {
       emit(LoginSuccessState());

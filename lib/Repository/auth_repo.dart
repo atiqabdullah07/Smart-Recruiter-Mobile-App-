@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +16,8 @@ Future<String?> decodeTokken() async {
 }
 
 class AuthRepo {
-  Future<bool> signUpRecruiter({required Recruiter recruiter}) async {
+  Future<bool> signUpRecruiter(
+      {required Recruiter recruiter, required BuildContext context}) async {
     bool isUSerCreated = false;
     print("API Called");
     easyLoading();
@@ -37,7 +39,11 @@ class AuthRepo {
       if (response.statusCode == 201) {
         log(await response.stream.bytesToString());
         EasyLoading.dismiss();
+        // showSuccess(
+        //     title: "Registered Successfully.\nNow login to your Account",
+        //     context: context);
         toast("Registered Successfully.\nNow login to your Account");
+
         isUSerCreated = true;
       } else {
         log(response.reasonPhrase.toString());
@@ -49,7 +55,8 @@ class AuthRepo {
     return isUSerCreated;
   }
 
-  Future<bool> logInRecruiter({required Recruiter recruiter}) async {
+  Future<bool> logInRecruiter(
+      {required Recruiter recruiter, required BuildContext context}) async {
     bool isLoggedIn = false;
     easyLoading();
     try {
@@ -84,7 +91,8 @@ class AuthRepo {
         var res = await response.stream.bytesToString();
         Map<String, dynamic> responseData = jsonDecode(res);
         String message = responseData['message'];
-        toast(message);
+        // toast(message);
+        showError(title: message, context: context);
       }
     } catch (error) {
       log("Login  Recruiter Catched Error: $error");

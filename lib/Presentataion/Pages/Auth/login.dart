@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:smart_recruiter/Business%20Logic/Recruiter%20Login/recruiter_login_bloc.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Auth/auth_widgets.dart';
@@ -69,6 +70,7 @@ class _LoginState extends State<Login> {
                       height: 40.h,
                     ),
                     CustomTextField(
+                        obsecureText: false,
                         controller: emailController,
                         hintText: "Enter your Email",
                         svgPath: "assets/icons/sms.svg"),
@@ -76,6 +78,7 @@ class _LoginState extends State<Login> {
                       height: 10.h,
                     ),
                     CustomTextField(
+                        obsecureText: true,
                         controller: passwordController,
                         hintText: "Enter your Password",
                         svgPath: "assets/icons/Lock.svg"),
@@ -99,7 +102,9 @@ class _LoginState extends State<Login> {
                       title: "Login to your account",
                       onPress: () {
                         context.read<RecruiterLoginBloc>().add(LoginClickEvent(
-                            emailController.text, passwordController.text));
+                            emailController.text,
+                            passwordController.text,
+                            context));
                       },
                     ),
                     SizedBox(

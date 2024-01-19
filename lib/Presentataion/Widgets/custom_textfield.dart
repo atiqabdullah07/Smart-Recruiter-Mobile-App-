@@ -7,13 +7,15 @@ class CustomTextField extends StatefulWidget {
   final String hintText;
   final String svgPath;
   final TextEditingController controller;
+  final bool obsecureText;
 
-  const CustomTextField({
-    Key? key,
-    required this.hintText,
-    required this.svgPath,
-    required this.controller,
-  }) : super(key: key);
+  const CustomTextField(
+      {Key? key,
+      required this.hintText,
+      required this.svgPath,
+      required this.controller,
+      required this.obsecureText})
+      : super(key: key);
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -31,6 +33,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      obscureText: widget.obsecureText,
       controller: widget.controller,
       focusNode: _focusNode,
       onChanged: (value) {

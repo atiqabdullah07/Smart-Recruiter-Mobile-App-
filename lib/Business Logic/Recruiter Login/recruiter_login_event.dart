@@ -10,9 +10,7 @@ abstract class RecruiterLoginEvent extends Equatable {
 class LoginClickEvent extends RecruiterLoginEvent {
   final String email;
   final String password;
+  final BuildContext context;
 
-  const LoginClickEvent(
-    this.email,
-    this.password,
-  );
+  const LoginClickEvent(this.email, this.password, this.context);
 }

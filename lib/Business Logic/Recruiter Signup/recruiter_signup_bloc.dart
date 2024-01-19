@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Data/Models/recruiter.dart';
@@ -20,20 +21,24 @@ class RecruiterSignupBloc
       SignUpClicedEvent event, Emitter<RecruiterSignupState> emit) async {
     AuthRepo repo = AuthRepo();
     if (event.password != event.confirmPassword) {
-      toast("Password not Matched. Try Again");
+      showError(title: "Confirm Password not Matched.", context: event.context);
     } else if (event.email == '' ||
         event.username == '' ||
         event.password == '') {
-      toast("Plese Enter all Information");
+      showError(title: "Please Enter all information.", context: event.context);
     } else if (isValidEmail(event.email) == false) {
-      toast("Please Enter a valid Email");
+      showError(title: "Enter a valid Email.", context: event.context);
     } else if (event.password.length < 6) {
-      toast("Please Enter 6 digit Password");
+      showError(
+          title: "Please Enter atlest 6 digit password.",
+          context: event.context);
     } else {
       bool isSignedIn = await repo.signUpRecruiter(
-        recruiter: Recruiter(
-            name: event.username, email: event.email, password: event.password),
-      );
+          recruiter: Recruiter(
+              name: event.username,
+              email: event.email,
+              password: event.password),
+          context: event.context);
 
       if (isSignedIn == true) {
         emit(SignUpSuccessState());

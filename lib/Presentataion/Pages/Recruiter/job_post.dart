@@ -101,16 +101,47 @@ class _JobPostState extends State<JobPost> {
                                   context: context,
                                   builder: (context) {
                                     return AlertDialog(
+                                      backgroundColor:
+                                          AppColors.backgroundColor,
+                                      surfaceTintColor:
+                                          AppColors.backgroundColor,
                                       title: Text('Add Skill'),
                                       content: TextField(
+                                        decoration: InputDecoration(
+                                            hintText: "Enter skill title"),
                                         controller: addSkillController,
                                       ),
                                       actions: [
                                         GestureDetector(
                                           onTap: () {
+                                            Navigator.pop(context);
+                                            setState(() {
+                                              addSkillController.clear();
+                                            });
+                                          },
+                                          child: Container(
+                                            height: 40,
+                                            width: 80,
+                                            decoration: BoxDecoration(
+                                                color: Colors.black
+                                                    .withOpacity(0.1),
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Center(
+                                                child: Text(
+                                              "Cancel",
+                                              style: TextStyle(
+                                                  color: AppColors.black),
+                                            )),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.pop(context);
                                             setState(() {
                                               Skills.add(
                                                   addSkillController.text);
+                                              addSkillController.clear();
                                             });
                                           },
                                           child: Container(
@@ -260,22 +291,33 @@ class _JobPostState extends State<JobPost> {
                             SizedBox(
                               width: 20.w,
                             ),
-                            Icon(
-                              Icons.add,
-                              size: 35,
-                              color: AppColors.supportiveGrey.withOpacity(0.8),
-                            ),
+                            _pickedFileName == null
+                                ? Icon(
+                                    Icons.add,
+                                    size: 35,
+                                    color: AppColors.supportiveGrey
+                                        .withOpacity(0.8),
+                                  )
+                                : Image.asset(
+                                    "assets/pdficon.png",
+                                    width: 50,
+                                  ),
                             SizedBox(
                               width: 10.w,
                             ),
-                            Text(
-                              _pickedFileName == null
-                                  ? "Upload Job Description File"
-                                  : _pickedFileName!,
-                              style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: AppColors.supportiveGrey
-                                      .withOpacity(0.8)),
+                            SizedBox(
+                              width: 220.w,
+                              child: RichText(
+                                  overflow: TextOverflow.ellipsis,
+                                  text: TextSpan(
+                                    text: _pickedFileName == null
+                                        ? "Upload Job Description File"
+                                        : _pickedFileName!,
+                                    style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: AppColors.supportiveGrey
+                                            .withOpacity(0.8)),
+                                  )),
                             ),
                           ]),
                         ),
@@ -295,6 +337,8 @@ class _JobPostState extends State<JobPost> {
                                   title: jobTitleController.text,
                                   experienceLevel: experienceController.text,
                                   jobType: jobType,
+                                  jobLocation: jobLocation,
+                                  context: context,
                                   skills: Skills);
 
                               print("Posted Job: $isJobPosted");
