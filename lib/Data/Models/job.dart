@@ -5,8 +5,10 @@ class Job1 {
   String? jobType;
   String? experienceLevel;
   String? owner;
+  String? companyName;
   List<String>? skills;
   String? createdAt;
+  String? companyLogo;
   List<dynamic>? applicants;
 
   Job1({
@@ -14,8 +16,10 @@ class Job1 {
     this.title,
     this.descriptionFile,
     this.jobType,
+    this.companyName,
     this.experienceLevel,
     this.owner,
+    this.companyLogo,
     this.skills,
     this.createdAt,
     this.applicants,

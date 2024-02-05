@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Constants/helper_methods.dart';
 import 'package:smart_recruiter/Data/Models/job.dart';
 import 'package:smart_recruiter/Repository/auth_repo.dart';
 import 'package:http/http.dart' as http;
@@ -21,11 +22,10 @@ class RecruiterJobsBloc extends Bloc<RecruiterJobsEvent, RecruiterJobsState> {
   FutureOr<void> _getJobsEvent(
       GetJobsEvent event, Emitter<RecruiterJobsState> emit) async {
     List<Job1> myJobs = [];
+
     String profilePic = '';
     String companyName = '';
     try {
-      print("Recruiter Profile Called");
-
       var jwtToken = await decodeTokken();
 
       var headers = {
@@ -46,27 +46,31 @@ class RecruiterJobsBloc extends Bloc<RecruiterJobsEvent, RecruiterJobsState> {
         Map<String, dynamic> responseData = jsonDecode(res);
 
         companyName = responseData['recruiter']['name'];
+        profilePic = responseData['recruiter']['avatar'];
 
         print(responseData);
 
         for (int i = 0; i < responseData['recruiter']['jobs'].length; i++) {
           print("loop");
+
           myJobs.add(
             Job1(
-              title: responseData['recruiter']['jobs'][i]['title'],
-              descriptionFile: responseData['recruiter']['jobs'][i]
-                  ['descriptionFile'],
-              jobType: responseData['recruiter']['jobs'][i]['jobType'],
-              experienceLevel: responseData['recruiter']['jobs'][i]
-                  ['experienceLevel'],
-              owner: responseData['recruiter']['jobs'][i]['owner'],
-              createdAt:
-                  responseData['recruiter']['jobs'][i]['createdAt'].toString(),
-            ),
+                title: responseData['recruiter']['jobs'][i]['title'],
+                descriptionFile: responseData['recruiter']['jobs'][i]
+                    ['descriptionFile'],
+                jobType: responseData['recruiter']['jobs'][i]['jobType'],
+                experienceLevel: responseData['recruiter']['jobs'][i]
+                    ['experienceLevel'],
+                owner: responseData['recruiter']['jobs'][i]['owner'],
+                createdAt: dateConvertor(
+                  dateFromApi: responseData['recruiter']['jobs'][i]['createdAt']
+                      .toString(),
+                )),
           );
         }
+        myJobs = myJobs.reversed.toList();
 
-        print("All of my Jobs: ${myJobs[1].title}");
+        //print("All of my Jobs: ${myJobs[1].title}");
       } else {
         print(response.reasonPhrase);
       }

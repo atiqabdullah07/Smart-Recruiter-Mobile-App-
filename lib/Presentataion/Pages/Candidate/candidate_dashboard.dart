@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Candidate/all_jobs.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/job_details.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/cards.dart';
 
@@ -140,7 +141,15 @@ class CandidateDashboard extends StatelessWidget {
                 SizedBox(
                   height: 20.h,
                 ),
-                headingRow(title: "All jobs", onPress: () {}),
+                headingRow(
+                    title: "All jobs",
+                    onPress: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AllJobsPage()),
+                      );
+                    }),
                 SizedBox(
                   height: 10.h,
                 ),

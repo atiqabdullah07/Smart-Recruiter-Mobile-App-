@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_recruiter/Business%20Logic/Recruiter%20Jobs/recruiter_jobs_bloc.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Recruiter/recruiter_profile.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/cards.dart';
-import 'package:smart_recruiter/Repository/recruiter_repo.dart';
 
 class RecruiterDashboard extends StatefulWidget {
   const RecruiterDashboard({super.key});
@@ -19,8 +19,6 @@ class _RecruiterDashboardState extends State<RecruiterDashboard> {
 
     context.read<RecruiterJobsBloc>().add(GetJobsEvent());
   }
-
-  RecruiterRepo repo = RecruiterRepo();
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +44,12 @@ class _RecruiterDashboardState extends State<RecruiterDashboard> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              context
-                                  .read<RecruiterJobsBloc>()
-                                  .add(GetJobsEvent());
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RecruiterProfile()),
+                              );
                             },
                             child: CircleAvatar(
                               radius: 40.r,
@@ -56,8 +57,8 @@ class _RecruiterDashboardState extends State<RecruiterDashboard> {
                               child: CircleAvatar(
                                 radius: 38.r,
                                 backgroundColor: Colors.green,
-                                backgroundImage: const NetworkImage(
-                                    "https://pluspng.com/img-png/google-logo-png-revised-google-logo-1600.png"),
+                                backgroundImage:
+                                    NetworkImage(GetJobs.companyLogo),
                               ),
                             ),
                           ),
@@ -76,7 +77,7 @@ class _RecruiterDashboardState extends State<RecruiterDashboard> {
                                 ),
                               ),
                               Text(
-                                "Google",
+                                GetJobs.name,
                                 style: TextStyle(
                                     color: AppColors.black,
                                     fontSize: 20,
@@ -115,9 +116,8 @@ class _RecruiterDashboardState extends State<RecruiterDashboard> {
                                 jobTitle: GetJobs.myJobs[index].title!,
                                 jobType: GetJobs.myJobs[index].jobType!,
                                 companyName: GetJobs.name,
-                                date: "13 dec",
-                                companyLogo:
-                                    "https://pluspng.com/img-png/google-logo-png-revised-google-logo-1600.png",
+                                date: GetJobs.myJobs[index].createdAt!,
+                                companyLogo: GetJobs.companyLogo,
                               );
                             }),
                       ),

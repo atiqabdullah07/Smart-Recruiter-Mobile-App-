@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Auth/candidate_login.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Auth/login.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/bottom_nav.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/candidate_dashboard.dart';
@@ -85,7 +86,7 @@ class _CategoreyPageState extends State<CategoreyPage> {
               if (isSelected == 1) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BNB()),
+                  MaterialPageRoute(builder: (context) => CandidateLogin()),
                 );
               } else {
                 Navigator.push(

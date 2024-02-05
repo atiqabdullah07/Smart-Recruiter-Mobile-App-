@@ -19,6 +19,15 @@ class AppColors {
   static const backgroundColor = Color(0xffffffff);
 }
 
+const cardColors = [
+  Color(0xFFF8F5FE),
+  Color(0xFFFEF3E0),
+  Color(0xFFF6FCEA),
+  Color(0xFFFEFCE8),
+  Color(0xFFF4F7FE),
+  Color(0xFFF8EEEE),
+];
+
 String hostName = '192.168.201.205';
 // Defining these spaces so that we don't have to use SizedBox again and again
 Widget verticalSpace(double height) {

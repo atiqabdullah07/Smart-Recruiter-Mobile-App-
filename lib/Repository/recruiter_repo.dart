@@ -104,7 +104,7 @@ class RecruiterRepo {
   Future<void> getRecruiterProfile() async {
     try {
       print("Recruiter Profile Called");
-      print("object");
+
       var jwtToken = await decodeTokken();
 
       var headers = {
@@ -156,6 +156,32 @@ class RecruiterRepo {
       }
     } catch (error) {
       print("Get Profile Error: $error");
+    }
+  }
+
+  Future<void> recruiterProfileUpdate(String filePath) async {
+    try {
+      var jwtToken = await decodeTokken();
+
+      var headers = {
+        'Content-Type': 'application/json',
+        'Cookie': 'token=$jwtToken'
+      };
+      String avatar = await uploadFile(filePath);
+      var request = http.Request('PUT',
+          Uri.parse('http://$hostName:3000/api/v1/recruiter/updateprofile'));
+      request.body = json.encode({"avatar": avatar});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print("Recruiter Profile Update Error");
     }
   }
 }

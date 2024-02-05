@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -377,6 +379,178 @@ class RecruiterJobsCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 12.sp,
                             color: AppColors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ColorfullCard extends StatelessWidget {
+  const ColorfullCard(
+      {super.key,
+      required this.color,
+      required this.jobTitle,
+      required this.jobType,
+      required this.companyName,
+      required this.date,
+      required this.companyLogo});
+
+  final Color color;
+  final String jobTitle;
+  final String jobType;
+  final String companyName;
+  final String date;
+  final String companyLogo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 195,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: AppColors.supportiveGrey.withOpacity(0.2),
+        ),
+        borderRadius: BorderRadius.circular(30.r),
+        color: color,
+      ),
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: 18.h,
+          left: 18.w,
+          right: 18.w,
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                  height: 30.h,
+                  width: 90.w,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      color: AppColors.supportiveGrey.withOpacity(0.2),
+                    ),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Center(
+                    child: Text(
+                      jobType,
+                      style: TextStyle(color: AppColors.blue, fontSize: 12),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 15.w,
+                ),
+                Container(
+                  height: 30.h,
+                  width: 90.w,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      color: AppColors.supportiveGrey.withOpacity(0.2),
+                    ),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Center(
+                    child: Text(
+                      jobType,
+                      style: TextStyle(color: AppColors.blue, fontSize: 12),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 13.h,
+            ),
+            Row(
+              children: [
+                Container(
+                  height: 63.h,
+                  width: 63.w,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(image: NetworkImage(companyLogo)),
+                    color: Colors.white,
+                    border: Border.all(
+                      color: AppColors.supportiveGrey.withOpacity(0.2),
+                    ),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      jobTitle,
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          color: AppColors.black.withOpacity(0.8),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      companyName,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.black.withOpacity(0.8),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        "assets/icons/Time.svg",
+                        height: 20,
+                        color: AppColors.black.withOpacity(0.7),
+                      ),
+                      SizedBox(
+                        width: 8.w,
+                      ),
+                      Text(
+                        date,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    child: Container(
+                      height: 40.h,
+                      width: 90.w,
+                      decoration: BoxDecoration(
+                        color: AppColors.black.withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Apply",
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: AppColors.white,
                           ),
                         ),
                       ),

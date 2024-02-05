@@ -2,22 +2,26 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+
 import 'package:smart_recruiter/Constants/app_constants.dart';
-import 'package:smart_recruiter/Data/Models/recruiter.dart';
+import 'package:smart_recruiter/Data/Models/candidate.dart';
+
 import 'package:smart_recruiter/Repository/auth_repo.dart';
 
-part 'recruiter_signup_event.dart';
-part 'recruiter_signup_state.dart';
+part 'candidate_sign_up_event.dart';
+part 'candidate_sign_up_state.dart';
 
-class RecruiterSignupBloc
-    extends Bloc<RecruiterSignupEvent, RecruiterSignupState> {
-  RecruiterSignupBloc() : super(RecruiterSignupInitial()) {
-    on<RecruiterSignupEvent>((event, emit) {});
-    on<SignUpClicedEvent>(_signUpClickedEvent);
+class CandidateSignUpBloc
+    extends Bloc<CandidateSignUpEvent, CandidateSignUpState> {
+  CandidateSignUpBloc() : super(CandidateSignUpInitial()) {
+    on<CandidateSignUpEvent>((event, emit) {});
+
+    on<CandidateSignUpClicedEvent>(_candidateSignUpClicedEvent);
   }
 
-  FutureOr<void> _signUpClickedEvent(
-      SignUpClicedEvent event, Emitter<RecruiterSignupState> emit) async {
+  Future<FutureOr<void>> _candidateSignUpClicedEvent(
+      CandidateSignUpClicedEvent event,
+      Emitter<CandidateSignUpState> emit) async {
     AuthRepo repo = AuthRepo();
     if (event.password != event.confirmPassword) {
       showError(title: "Confirm Password not Matched.", context: event.context);
@@ -32,15 +36,15 @@ class RecruiterSignupBloc
           title: "Please Enter atlest 6 digit password.",
           context: event.context);
     } else {
-      bool isSignedIn = await repo.signUpRecruiter(
-          recruiter: Recruiter(
+      bool isSignedIn = await repo.signUpCandidate(
+          candidate: Candidate(
               name: event.username,
               email: event.email,
               password: event.password),
           context: event.context);
 
       if (isSignedIn == true) {
-        emit(SignUpSuccessState());
+        emit(CandidateSignUpSuccessState());
       }
     }
   }
