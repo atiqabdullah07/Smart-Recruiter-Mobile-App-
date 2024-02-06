@@ -444,7 +444,7 @@ class ColorfullCard extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      jobType,
+                      jobType.split(',')[0],
                       style: TextStyle(color: AppColors.blue, fontSize: 12),
                     ),
                   ),
@@ -464,7 +464,7 @@ class ColorfullCard extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      jobType,
+                      jobType.split(',')[1],
                       style: TextStyle(color: AppColors.blue, fontSize: 12),
                     ),
                   ),
