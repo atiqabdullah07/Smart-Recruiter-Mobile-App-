@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Data/Models/job.dart';
 
 class JobsCard2 extends StatelessWidget {
   const JobsCard2({super.key});
@@ -402,6 +403,7 @@ class ColorfullCard extends StatelessWidget {
       required this.jobType,
       required this.companyName,
       required this.date,
+      required this.job,
       required this.companyLogo,
       required this.applyOnPress});
 
@@ -410,6 +412,7 @@ class ColorfullCard extends StatelessWidget {
   final String jobType;
   final String companyName;
   final String date;
+  final Job1 job;
   final String companyLogo;
   final VoidCallback applyOnPress;
 
@@ -478,16 +481,19 @@ class ColorfullCard extends StatelessWidget {
             ),
             Row(
               children: [
-                Container(
-                  height: 63.h,
-                  width: 63.w,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: NetworkImage(companyLogo)),
-                    color: Colors.white,
-                    border: Border.all(
-                      color: AppColors.supportiveGrey.withOpacity(0.2),
+                Hero(
+                  tag: job,
+                  child: Container(
+                    height: 68.h,
+                    width: 63.w,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(image: NetworkImage(companyLogo)),
+                      color: Colors.white,
+                      border: Border.all(
+                        color: AppColors.supportiveGrey.withOpacity(0.2),
+                      ),
+                      borderRadius: BorderRadius.circular(100),
                     ),
-                    borderRadius: BorderRadius.circular(100),
                   ),
                 ),
                 SizedBox(

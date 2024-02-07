@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:smart_recruiter/Business%20Logic/Get%20All%20Jobs/get_all_jobs_bloc.dart';
 
 import 'package:smart_recruiter/Constants/app_constants.dart';
@@ -21,13 +22,15 @@ class _AllJobsPageState extends State<AllJobsPage> {
     context.read<GetAllJobsBloc>().add(GetJobsClickedEvent());
   }
 
+  Future<void> _handleRefresh() async {
+    context.read<GetAllJobsBloc>().add(GetJobsClickedEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GetAllJobsBloc, GetAllJobsState>(
       listener: (context, state) {
-        if (state is GetAllJobsSuccessState) {
-          setState(() {});
-        }
+        //  if (state is GetAllJobsSuccessState) {}
       },
       builder: (context, state) {
         switch (state.runtimeType) {
@@ -39,27 +42,25 @@ class _AllJobsPageState extends State<AllJobsPage> {
               appBar: AppBar(
                 backgroundColor: AppColors.backgroundColor,
                 centerTitle: true,
+                toolbarHeight: 80,
                 title: const Text('All Jobs'),
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        context
-                            .read<GetAllJobsBloc>()
-                            .add(GetJobsClickedEvent());
-                      },
-                      icon: Icon(Icons.refresh))
-                ],
               ),
-              body: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 22.w),
+              body: LiquidPullToRefresh(
+                onRefresh: _handleRefresh,
+                showChildOpacityTransition: false,
+                backgroundColor: AppColors.white,
+                height: 100.h,
+                color: AppColors.blue,
                 child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     itemCount: GetJobs.allJobs.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: GetJobs.allJobs[index] != GetJobs.allJobs.last
-                            ? EdgeInsets.only(bottom: 12.h)
-                            : EdgeInsets.only(bottom: 100.h),
+                            ? EdgeInsets.only(
+                                bottom: 12.h, left: 22.w, right: 22.w)
+                            : EdgeInsets.only(
+                                bottom: 100.h, left: 22.w, right: 22.w),
                         child: ColorfullCard(
                           color: cardColors[index % 6],
                           jobTitle: GetJobs.allJobs[index].title!,
@@ -68,7 +69,6 @@ class _AllJobsPageState extends State<AllJobsPage> {
                           date: GetJobs.allJobs[index].createdAt!,
                           companyLogo: GetJobs.allJobs[index].companyLogo!,
                           applyOnPress: () {
-                            // print(GetJobs.allJobs[index].title!);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -77,6 +77,7 @@ class _AllJobsPageState extends State<AllJobsPage> {
                                       )),
                             );
                           },
+                          job: GetJobs.allJobs[index],
                         ),
                       );
                     }),
@@ -88,22 +89,8 @@ class _AllJobsPageState extends State<AllJobsPage> {
               appBar: AppBar(
                 backgroundColor: AppColors.backgroundColor,
                 centerTitle: true,
-                leading: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: Icon(Icons.arrow_back_ios),
-                ),
+                toolbarHeight: 80,
                 title: const Text('All Jobs'),
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        context
-                            .read<GetAllJobsBloc>()
-                            .add(GetJobsClickedEvent());
-                      },
-                      icon: Icon(Icons.refresh))
-                ],
               ),
               body: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 22.w),

@@ -57,15 +57,18 @@ class JobDetails extends StatelessWidget {
                 ),
                 Positioned(
                     top: 190,
-                    child: CircleAvatar(
-                      backgroundColor: AppColors.blue,
-                      radius: 62,
+                    child: Hero(
+                      tag: job,
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          job.companyLogo!,
+                        backgroundColor: AppColors.blue,
+                        radius: 62,
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            job.companyLogo!,
+                          ),
+                          radius: 60,
+                          backgroundColor: Colors.white,
                         ),
-                        radius: 60,
-                        backgroundColor: Colors.white,
                       ),
                     )),
               ],
