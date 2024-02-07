@@ -7,5 +7,8 @@ String dateConvertor({required String dateFromApi}) {
   if (relativeTime == 'a moment ago') {
     relativeTime = 'Just Now';
   }
+  if (relativeTime == 'a day ago') {
+    relativeTime = '1 day ago';
+  }
   return relativeTime;
 }

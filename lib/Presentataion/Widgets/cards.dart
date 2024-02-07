@@ -402,7 +402,8 @@ class ColorfullCard extends StatelessWidget {
       required this.jobType,
       required this.companyName,
       required this.date,
-      required this.companyLogo});
+      required this.companyLogo,
+      required this.applyOnPress});
 
   final Color color;
   final String jobTitle;
@@ -410,6 +411,7 @@ class ColorfullCard extends StatelessWidget {
   final String companyName;
   final String date;
   final String companyLogo;
+  final VoidCallback applyOnPress;
 
   @override
   Widget build(BuildContext context) {
@@ -538,6 +540,9 @@ class ColorfullCard extends StatelessWidget {
                     ],
                   ),
                   GestureDetector(
+                    onTap: () {
+                      applyOnPress();
+                    },
                     child: Container(
                       height: 40.h,
                       width: 90.w,

@@ -52,6 +52,7 @@ dependencies:
   image_picker: ^1.0.7
   intl: ^0.19.0
   timeago: ^3.6.1
+  easy_pdf_viewer: ^1.0.7
 
 dev_dependencies:
   flutter_test:

@@ -12,12 +12,12 @@ import 'package:smart_recruiter/Business%20Logic/Post%20Job/post_job_bloc.dart';
 import 'package:smart_recruiter/Business%20Logic/Recruiter%20Jobs/recruiter_jobs_bloc.dart';
 import 'package:smart_recruiter/Business%20Logic/Recruiter%20Login/recruiter_login_bloc.dart';
 import 'package:smart_recruiter/Business%20Logic/Recruiter%20Signup/recruiter_signup_bloc.dart';
+import 'package:smart_recruiter/Business%20Logic/Search%20Jobs/search_jobs_bloc.dart';
 
 import 'package:smart_recruiter/Presentataion/Pages/Others/onboarding.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
   runApp(ScreenUtilInit(
     builder: (context, child) {
       return MultiBlocProvider(
@@ -42,6 +42,9 @@ void main() {
           ),
           BlocProvider<GetAllJobsBloc>(
             create: (BuildContext context) => GetAllJobsBloc(),
+          ),
+          BlocProvider<SearchJobsBloc>(
+            create: (BuildContext context) => SearchJobsBloc(),
           ),
         ],
         child: MaterialApp(

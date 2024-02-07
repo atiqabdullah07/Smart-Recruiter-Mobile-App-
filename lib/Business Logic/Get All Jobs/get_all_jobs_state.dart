@@ -10,3 +10,5 @@ class GetAllJobsSuccessState extends GetAllJobsState {
 
   GetAllJobsSuccessState(this.allJobs);
 }
+
+class GetAllJobsLoadingState extends GetAllJobsState {}

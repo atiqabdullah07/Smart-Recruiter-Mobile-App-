@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_recruiter/Business%20Logic/Get%20All%20Jobs/get_all_jobs_bloc.dart';
 
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Candidate/job_details.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/cards.dart';
 
 class AllJobsPage extends StatefulWidget {
@@ -36,15 +37,17 @@ class _AllJobsPageState extends State<AllJobsPage> {
             return Scaffold(
               backgroundColor: AppColors.backgroundColor,
               appBar: AppBar(
+                backgroundColor: AppColors.backgroundColor,
+                centerTitle: true,
                 title: const Text('All Jobs'),
                 actions: [
-                  ElevatedButton(
+                  IconButton(
                       onPressed: () {
                         context
                             .read<GetAllJobsBloc>()
                             .add(GetJobsClickedEvent());
                       },
-                      child: Text("test"))
+                      icon: Icon(Icons.refresh))
                 ],
               ),
               body: Padding(
@@ -58,12 +61,23 @@ class _AllJobsPageState extends State<AllJobsPage> {
                             ? EdgeInsets.only(bottom: 12.h)
                             : EdgeInsets.only(bottom: 100.h),
                         child: ColorfullCard(
-                            color: cardColors[index % 6],
-                            jobTitle: GetJobs.allJobs[index].title!,
-                            jobType: GetJobs.allJobs[index].jobType!,
-                            companyName: GetJobs.allJobs[index].companyName!,
-                            date: GetJobs.allJobs[index].createdAt!,
-                            companyLogo: GetJobs.allJobs[index].companyLogo!),
+                          color: cardColors[index % 6],
+                          jobTitle: GetJobs.allJobs[index].title!,
+                          jobType: GetJobs.allJobs[index].jobType!,
+                          companyName: GetJobs.allJobs[index].companyName!,
+                          date: GetJobs.allJobs[index].createdAt!,
+                          companyLogo: GetJobs.allJobs[index].companyLogo!,
+                          applyOnPress: () {
+                            // print(GetJobs.allJobs[index].title!);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => JobDetails(
+                                        job: GetJobs.allJobs[index],
+                                      )),
+                            );
+                          },
+                        ),
                       );
                     }),
               ),
@@ -71,8 +85,46 @@ class _AllJobsPageState extends State<AllJobsPage> {
           default:
             return Scaffold(
               backgroundColor: AppColors.backgroundColor,
-              body: const Center(
-                child: CircularProgressIndicator(),
+              appBar: AppBar(
+                backgroundColor: AppColors.backgroundColor,
+                centerTitle: true,
+                leading: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(Icons.arrow_back_ios),
+                ),
+                title: const Text('All Jobs'),
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        context
+                            .read<GetAllJobsBloc>()
+                            .add(GetJobsClickedEvent());
+                      },
+                      icon: Icon(Icons.refresh))
+                ],
+              ),
+              body: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 22.w),
+                child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    itemCount: 6,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 12.h),
+                        child: Container(
+                            height: 195,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color:
+                                    AppColors.supportiveGrey.withOpacity(0.2),
+                              ),
+                              borderRadius: BorderRadius.circular(30.r),
+                              color: Colors.grey.shade100,
+                            )),
+                      );
+                    }),
               ),
             );
         }

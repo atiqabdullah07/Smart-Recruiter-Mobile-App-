@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/all_jobs.dart';
-import 'package:smart_recruiter/Presentataion/Pages/Candidate/job_details.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Candidate/search_job.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/cards.dart';
 
 class CandidateDashboard extends StatelessWidget {
@@ -96,6 +96,14 @@ class CandidateDashboard extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 25.w),
                             child: TextField(
+                              readOnly: true,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const SearchJobs()),
+                                );
+                              },
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(
@@ -131,11 +139,11 @@ class CandidateDashboard extends StatelessWidget {
                 ),
                 GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const JobDetails()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => const JobDetails()),
+                      // );
                     },
                     child: const JobsCard1()),
                 SizedBox(

@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Candidate/all_jobs.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/candidate_dashboard.dart';
 
 class BNB extends StatelessWidget {
@@ -20,10 +21,7 @@ class BNB extends StatelessWidget {
           context,
           screens: [
             CandidateDashboard(),
-            // const Search(),
-            Center(
-              child: const Text("All Jobs"),
-            ),
+            AllJobsPage(),
             Center(child: const Text("Profile")),
             const Center(
               child: Text("Settings"),

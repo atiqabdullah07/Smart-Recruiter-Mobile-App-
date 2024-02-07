@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Data/Models/job.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Candidate/file_viewer_page.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/upload_cv.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
 
 class JobDetails extends StatelessWidget {
-  const JobDetails({super.key});
+  const JobDetails({super.key, required this.job});
+  final Job1 job;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: AppColors.backgroundColor,
+      appBar: AppBar(
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: CircleAvatar(
+            radius: 25,
+            backgroundColor: AppColors.white.withOpacity(0.8),
+            child: Center(
+              child: Icon(Icons.arrow_back_ios),
+            ),
+          ),
+        ),
+        backgroundColor: AppColors.backgroundColor.withOpacity(0),
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -25,10 +46,10 @@ class JobDetails extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(
-                          "https://media.architecturaldigest.com/photos/5df25a57649df00009cd1e39/master/pass/HGA-office-PH_190207_N20.jpg",
+                        image: AssetImage(
+                          "assets/Image.jpeg",
                         )),
-                    color: Colors.green,
+                    color: AppColors.teal.withOpacity(0.5),
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(50),
                         bottomRight: Radius.circular(50)),
@@ -37,11 +58,15 @@ class JobDetails extends StatelessWidget {
                 Positioned(
                     top: 190,
                     child: CircleAvatar(
-                      backgroundImage: AssetImage(
-                        "assets/google.png",
+                      backgroundColor: AppColors.blue,
+                      radius: 62,
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          job.companyLogo!,
+                        ),
+                        radius: 60,
+                        backgroundColor: Colors.white,
                       ),
-                      radius: 60,
-                      backgroundColor: Colors.white,
                     )),
               ],
             ),
@@ -50,7 +75,7 @@ class JobDetails extends StatelessWidget {
             ),
             Center(
               child: Text(
-                "App Developer",
+                job.title!,
                 style: TextStyle(
                     fontSize: 16.sp,
                     color: AppColors.black80,
@@ -60,12 +85,10 @@ class JobDetails extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            buildCell(title: "Company Name", data: "Google"),
-            buildCell(
-                title: "Job Title", data: "Mobile App Developer, Flutter"),
-            buildCell(
-                title: "Experience Level", data: "1-2 years of experience"),
-            buildCell(title: "Job Type", data: "Full Time, On Site"),
+            buildCell(title: "Company Name", data: job.companyName!),
+            buildCell(title: "Job Title", data: job.title!),
+            buildCell(title: "Experience Level", data: job.experienceLevel!),
+            buildCell(title: "Job Type", data: job.jobType!),
             Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, bottom: 15),
               child: Column(
@@ -79,42 +102,57 @@ class JobDetails extends StatelessWidget {
                       color: AppColors.supportiveGrey,
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 12.h),
-                    height: 70.h,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        width: 1.2,
-                        color: AppColors.supportiveGrey.withOpacity(0.2),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => FileViewer(
+                                pdfFile: job.descriptionFile!,
+                              )));
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 12.h),
+                      height: 70.h,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          width: 1.2,
+                          color: AppColors.supportiveGrey.withOpacity(0.2),
+                        ),
+                        borderRadius: BorderRadius.circular(20.r),
                       ),
-                      borderRadius: BorderRadius.circular(25.r),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 14.w),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/google.png",
-                            scale: 1.2,
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Job Details.pdf",
-                                style: TextStyle(
-                                    fontSize: 16.sp,
-                                    color: AppColors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          )
-                        ],
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 14.w),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              "assets/pdficon.png",
+                              scale: 2,
+                            ),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Job Details.pdf",
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      color: AppColors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 100.w,
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: AppColors.black,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   )
@@ -133,7 +171,7 @@ class JobDetails extends StatelessWidget {
             ),
             SizedBox(
               height: 100.h,
-            )
+            ),
           ],
         ),
       ),
