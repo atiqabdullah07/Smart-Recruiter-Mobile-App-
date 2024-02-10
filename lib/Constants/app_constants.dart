@@ -61,9 +61,7 @@ void easyLoading() {
       color: AppColors.teal,
     ),
     maskType: EasyLoadingMaskType.none,
-
     dismissOnTap: true,
-    // Customize elevation
   );
 }
 
