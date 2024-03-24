@@ -46,6 +46,7 @@ class GetAllJobsBloc extends Bloc<GetAllJobsEvent, GetAllJobsState> {
         for (int i = 0; i < responseData['jobs'].length; i++) {
           myJobs.add(
             Job1(
+                id: responseData['jobs'][i]['_id'],
                 title: responseData['jobs'][i]['title'],
                 descriptionFile: responseData['jobs'][i]['descriptionFile'],
                 jobType: responseData['jobs'][i]['jobType'],

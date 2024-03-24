@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
+import 'package:smart_recruiter/Repository/candidate_repo.dart';
+import 'package:smart_recruiter/Repository/recruiter_repo.dart';
 
 class UploadCV extends StatefulWidget {
-  const UploadCV({super.key});
+  const UploadCV({super.key, required this.jobID});
+  final String jobID;
 
   @override
   State<UploadCV> createState() => _UploadCVState();
@@ -119,7 +122,23 @@ class _UploadCVState extends State<UploadCV> {
           SizedBox(
             height: 300,
           ),
-          Center(child: CustomButton(title: "Apply Now", onPress: () {}))
+          Center(
+              child: CustomButton(
+                  title: "Apply Now",
+                  onPress: () async {
+                    RecruiterRepo repo1 = RecruiterRepo();
+                    String fileName =
+                        await repo1.uploadFile(pickedFilePath.toString());
+
+                    CandidateRepo repo = CandidateRepo();
+                    var isApplied = await repo.applyJob(
+                        filePath: fileName, jobID: widget.jobID);
+                    if (isApplied == true) {
+                      Navigator.of(context).pop();
+                      showSuccess(
+                          title: 'Job Applied Successfully', context: context);
+                    }
+                  }))
         ]),
       ),
     );

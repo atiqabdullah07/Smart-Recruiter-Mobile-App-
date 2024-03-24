@@ -50,11 +50,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
             width: 24.0,
             color: _focusNode.hasFocus
                 ? AppColors.teal
-                : Colors.grey.withOpacity(0.3),
+                : Colors.grey.withOpacity(0.5),
           ),
         ),
         labelStyle: TextStyle(
-          color: Colors.grey.withOpacity(0.3),
+          color: Colors.grey.withOpacity(0.8),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),

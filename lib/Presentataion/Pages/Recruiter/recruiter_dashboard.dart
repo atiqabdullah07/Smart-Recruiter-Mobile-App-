@@ -56,7 +56,7 @@ class _RecruiterDashboardState extends State<RecruiterDashboard> {
                               backgroundColor: AppColors.blue,
                               child: CircleAvatar(
                                 radius: 38.r,
-                                backgroundColor: Colors.green,
+                                backgroundColor: AppColors.supportiveGrey,
                                 backgroundImage:
                                     NetworkImage(GetJobs.companyLogo),
                               ),

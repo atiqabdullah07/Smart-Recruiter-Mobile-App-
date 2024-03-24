@@ -29,7 +29,7 @@ class CandidateDashboard extends StatelessWidget {
                         backgroundColor: AppColors.blue,
                         child: CircleAvatar(
                           radius: 38.r,
-                          backgroundColor: Colors.green,
+                          backgroundColor: AppColors.supportiveGrey,
                           backgroundImage: const NetworkImage(
                               "https://abouteball.com/wp-content/uploads/2015/03/photodune-4276142-smiling-portraits-m1.jpg"),
                         ),

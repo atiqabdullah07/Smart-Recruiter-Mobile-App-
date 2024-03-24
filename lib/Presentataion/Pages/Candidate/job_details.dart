@@ -166,8 +166,11 @@ class JobDetails extends StatelessWidget {
               child: CustomButton(
                 title: "Apply Now",
                 onPress: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => UploadCV()));
+                  print(job.id);
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => UploadCV(
+                            jobID: job.id.toString(),
+                          )));
                 },
                 nextIcon: true,
               ),

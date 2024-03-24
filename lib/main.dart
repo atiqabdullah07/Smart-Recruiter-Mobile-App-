@@ -13,8 +13,7 @@ import 'package:smart_recruiter/Business%20Logic/Recruiter%20Jobs/recruiter_jobs
 import 'package:smart_recruiter/Business%20Logic/Recruiter%20Login/recruiter_login_bloc.dart';
 import 'package:smart_recruiter/Business%20Logic/Recruiter%20Signup/recruiter_signup_bloc.dart';
 import 'package:smart_recruiter/Business%20Logic/Search%20Jobs/search_jobs_bloc.dart';
-
-import 'package:smart_recruiter/Test%20Files/new_file.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Others/onboarding.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +49,7 @@ void main() {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: "Smart Recruiter",
-          home: BlocPractice(),
+          home: OnBoarding(),
           builder: EasyLoading.init(),
           theme: ThemeData(
             textTheme: GoogleFonts.poppinsTextTheme(),
