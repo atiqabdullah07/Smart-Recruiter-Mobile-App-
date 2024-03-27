@@ -18,8 +18,6 @@ class AllJobsPage extends StatefulWidget {
 class _AllJobsPageState extends State<AllJobsPage> {
   void initState() {
     super.initState();
-
-    context.read<GetAllJobsBloc>().add(GetJobsClickedEvent());
   }
 
   Future<void> _handleRefresh() async {
@@ -29,9 +27,7 @@ class _AllJobsPageState extends State<AllJobsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GetAllJobsBloc, GetAllJobsState>(
-      listener: (context, state) {
-        //  if (state is GetAllJobsSuccessState) {}
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         switch (state.runtimeType) {
           case GetAllJobsSuccessState:
@@ -87,6 +83,7 @@ class _AllJobsPageState extends State<AllJobsPage> {
             return Scaffold(
               backgroundColor: AppColors.backgroundColor,
               appBar: AppBar(
+                automaticallyImplyLeading: false,
                 backgroundColor: AppColors.backgroundColor,
                 centerTitle: true,
                 toolbarHeight: 80,

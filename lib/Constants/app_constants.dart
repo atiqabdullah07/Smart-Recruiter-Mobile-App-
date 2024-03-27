@@ -28,7 +28,7 @@ const cardColors = [
   Color(0xFFF8EEEE),
 ];
 
-String hostName = '192.168.61.100';
+String hostName = '192.168.61.103';
 // Defining these spaces so that we don't have to use SizedBox again and again
 Widget verticalSpace(double height) {
   return SizedBox(
@@ -109,4 +109,40 @@ void showSuccess({required String title, required BuildContext context}) {
     description: Text(title),
     position: MotionToastPosition.top,
   ).show(context);
+}
+
+var companiesList = [
+  'assets/logos/apple_logo.png',
+  'assets/logos/facebook_logo.png',
+  'assets/logos/google_logo.png',
+  'assets/logos/figma_logo.png'
+];
+
+Widget myCircularProgressIndicator() {
+  return Center(
+    child: Container(
+      height: 100,
+      width: 120,
+      decoration: BoxDecoration(
+          border: Border.all(width: 2, color: AppColors.blue.withOpacity(0.6)),
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.green.withOpacity(0.8)),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              CircularProgressIndicator(
+                color: AppColors.blue,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text('Loading...')
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

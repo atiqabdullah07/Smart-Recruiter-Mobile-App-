@@ -126,17 +126,21 @@ class _UploadCVState extends State<UploadCV> {
               child: CustomButton(
                   title: "Apply Now",
                   onPress: () async {
-                    RecruiterRepo repo1 = RecruiterRepo();
                     String fileName =
-                        await repo1.uploadFile(pickedFilePath.toString());
+                        await uploadFile(pickedFilePath.toString());
 
                     CandidateRepo repo = CandidateRepo();
                     var isApplied = await repo.applyJob(
                         filePath: fileName, jobID: widget.jobID);
                     if (isApplied == true) {
                       Navigator.of(context).pop();
-                      showSuccess(
-                          title: 'Job Applied Successfully', context: context);
+                      showDialog(
+                        context: context,
+                        builder: (context) => CustomDialogWidget(
+                            title: 'Profile Updated',
+                            message:
+                                'Your Profile has been Updated Successfully'),
+                      );
                     }
                   }))
         ]),

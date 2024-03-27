@@ -8,7 +8,7 @@ import 'package:smart_recruiter/Business%20Logic/Recruiter%20Login/recruiter_log
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Auth/auth_widgets.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Auth/signup.dart';
-import 'package:smart_recruiter/Presentataion/Pages/Recruiter/recruiter_bnb.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Recruiter/recruiter_home.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_textfield.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
 
@@ -32,7 +32,7 @@ class _LoginState extends State<Login> {
           listener: (context, state) {
             if (state is LoginSuccessState) {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => RecruiterMainScreen()));
+                  builder: (BuildContext context) => RecruiterHome()));
             }
           },
           builder: (context, state) {
@@ -101,10 +101,10 @@ class _LoginState extends State<Login> {
                     CustomButton(
                       title: "Login to your account",
                       onPress: () {
-                        context.read<RecruiterLoginBloc>().add(LoginClickEvent(
-                            emailController.text,
-                            passwordController.text,
-                            context));
+                        context.read<RecruiterLoginBloc>().add(
+                              LoginClickEvent(emailController.text,
+                                  passwordController.text, context),
+                            );
                       },
                     ),
                     SizedBox(

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Auth/candidate_login.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Auth/login.dart';
-import 'package:smart_recruiter/Presentataion/Pages/Candidate/bottom_nav.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Candidate/candidate_home.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/candidate_dashboard.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Others/Category%20Page/categorey_page_widgets.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';

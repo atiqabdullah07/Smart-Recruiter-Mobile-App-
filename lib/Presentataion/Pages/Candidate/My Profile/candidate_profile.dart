@@ -7,16 +7,18 @@ import 'package:get/get.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/My%20Profile/edit_customer_profile.dart';
 
+import 'package:smart_recruiter/Presentataion/Pages/Others/Category%20Page/categorey.dart';
 import 'package:smart_recruiter/Repository/GetX%20Controllers/candidate_controller.dart';
+import 'package:smart_recruiter/Repository/auth_repo.dart';
 
-class RecruiterProfile extends StatefulWidget {
-  const RecruiterProfile({super.key});
+class CustomerProfile extends StatefulWidget {
+  const CustomerProfile({super.key});
 
   @override
-  State<RecruiterProfile> createState() => _RecruiterProfileState();
+  State<CustomerProfile> createState() => _CustomerProfileState();
 }
 
-class _RecruiterProfileState extends State<RecruiterProfile> {
+class _CustomerProfileState extends State<CustomerProfile> {
   final CandidateController _candidateController =
       Get.put(CandidateController());
 

@@ -15,6 +15,20 @@ class SearchJobs extends StatefulWidget {
 }
 
 class _SearchJobsState extends State<SearchJobs> {
+  final TextEditingController _searchController = TextEditingController();
+  FocusNode _searchFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    //  _searchFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,9 +59,16 @@ class _SearchJobsState extends State<SearchJobs> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25.w),
                   child: TextField(
+                    enabled: true,
+                    controller: _searchController,
+                    focusNode: _searchFocusNode,
+                    autofocus: true,
                     onChanged: (value) {
                       if (value.isEmpty) {
-                        context.read<SearchJobsBloc>().add(EmptyJobField());
+                        print('Empty');
+                        context
+                            .read<SearchJobsBloc>()
+                            .add(JobSearchedEvent('[][]'));
                       }
                       context
                           .read<SearchJobsBloc>()
@@ -127,28 +148,6 @@ class _SearchJobsState extends State<SearchJobs> {
               );
             default:
               return SizedBox();
-
-            // Padding(
-            //   padding: EdgeInsets.symmetric(horizontal: 22.w),
-            //   child: ListView.builder(
-            //       physics: BouncingScrollPhysics(),
-            //       itemCount: 6,
-            //       itemBuilder: (context, index) {
-            //         return Padding(
-            //           padding: EdgeInsets.only(bottom: 12.h),
-            //           child: Container(
-            //               height: 195,
-            //               decoration: BoxDecoration(
-            //                 border: Border.all(
-            //                   color:
-            //                       AppColors.supportiveGrey.withOpacity(0.2),
-            //                 ),
-            //                 borderRadius: BorderRadius.circular(30.r),
-            //                 color: Colors.grey.shade100,
-            //               )),
-            //         );
-            //       }),
-            // );
           }
         },
       ),

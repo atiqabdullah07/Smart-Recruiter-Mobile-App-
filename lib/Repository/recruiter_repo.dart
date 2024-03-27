@@ -13,38 +13,6 @@ class RecruiterRepo {
 
   String companyName = '';
 
-  Future<String> uploadFile(String filePath) async {
-    print("API Called");
-    String? url = '';
-    try {
-      var request = http.MultipartRequest(
-        'POST',
-        Uri.parse('http://$hostName:3000/api/v1/uploadFile'),
-      );
-
-      // Add file to the request
-      var file = await http.MultipartFile.fromPath('filename', filePath);
-      request.files.add(file);
-
-      var response = await request.send();
-
-      if (response.statusCode == 200) {
-        var res = await response.stream.bytesToString();
-        Map<String, dynamic> responseData = jsonDecode(res);
-        String message = responseData['url'];
-        url = message;
-
-        return url;
-      } else {
-        print('File upload failed. Status code: ${response.statusCode}');
-        print(await response.stream.bytesToString());
-      }
-    } catch (error) {
-      print('Error during file upload: $error');
-    }
-    return url!;
-  }
-
   Future<bool> uploadJob(
       {required String title,
       required String experienceLevel,
@@ -184,4 +152,36 @@ class RecruiterRepo {
       print("Recruiter Profile Update Error");
     }
   }
+}
+
+Future<String> uploadFile(String filePath) async {
+  print("API Called");
+  String? url = '';
+  try {
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse('http://$hostName:3000/api/v1/uploadFile'),
+    );
+
+    // Add file to the request
+    var file = await http.MultipartFile.fromPath('filename', filePath);
+    request.files.add(file);
+
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+      var res = await response.stream.bytesToString();
+      Map<String, dynamic> responseData = jsonDecode(res);
+      String message = responseData['url'];
+      url = message;
+
+      return url;
+    } else {
+      print('File upload failed. Status code: ${response.statusCode}');
+      print(await response.stream.bytesToString());
+    }
+  } catch (error) {
+    print('Error during file upload: $error');
+  }
+  return url!;
 }

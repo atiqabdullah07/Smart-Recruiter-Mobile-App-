@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_recruiter/Business%20Logic/Candidate%20Login/candidate_login_bloc.dart';
 
 import 'package:smart_recruiter/Business%20Logic/Candidate%20SignUp/candidate_sign_up_bloc.dart';
@@ -13,10 +15,16 @@ import 'package:smart_recruiter/Business%20Logic/Recruiter%20Jobs/recruiter_jobs
 import 'package:smart_recruiter/Business%20Logic/Recruiter%20Login/recruiter_login_bloc.dart';
 import 'package:smart_recruiter/Business%20Logic/Recruiter%20Signup/recruiter_signup_bloc.dart';
 import 'package:smart_recruiter/Business%20Logic/Search%20Jobs/search_jobs_bloc.dart';
-import 'package:smart_recruiter/Presentataion/Pages/Others/onboarding.dart';
+import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Candidate/candidate_home.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Others/Category%20Page/categorey.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Recruiter/recruiter_home.dart';
 
-void main() {
+import 'package:smart_recruiter/Repository/auth_repo.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   runApp(ScreenUtilInit(
     builder: (context, child) {
       return MultiBlocProvider(
@@ -46,13 +54,16 @@ void main() {
             create: (BuildContext context) => SearchJobsBloc(),
           ),
         ],
-        child: MaterialApp(
+        child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: "Smart Recruiter",
-          home: OnBoarding(),
+          home: MainScreen(),
           builder: EasyLoading.init(),
           theme: ThemeData(
             textTheme: GoogleFonts.poppinsTextTheme(),
+            indicatorColor: AppColors.blue,
+            scaffoldBackgroundColor: AppColors.backgroundColor,
+            primaryColor: AppColors.blue,
             // Preload Poppins font
             // Other theme configurations
           ),
@@ -61,4 +72,39 @@ void main() {
     },
     designSize: const Size(393, 852),
   ));
+}
+
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  String? _userType;
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserType();
+  }
+
+  Future<void> _getUserType() async {
+    final userType = await AuthRepo.getUserType();
+    setState(() {
+      _userType = userType;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_userType == null) {
+      return CategoreyPage(); // or any loading widget
+    } else if (_userType == AuthRepo.candidateType) {
+      return CandidateHome();
+    } else if (_userType == AuthRepo.recruiterType) {
+      return RecruiterHome();
+    } else {
+      return Text('Unknown user type');
+    }
+  }
 }

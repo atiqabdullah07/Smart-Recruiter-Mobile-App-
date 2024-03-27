@@ -5,18 +5,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Data/Models/candidate.dart';
 import 'package:smart_recruiter/Data/Models/recruiter.dart';
 
 String currentUserID = '';
-Future<String?> decodeTokken() async {
-  const storage = FlutterSecureStorage();
-  final jwtToken = await storage.read(key: 'jwtToken');
-  return jwtToken;
-}
 
 class AuthRepo {
+  static const String userTypeKey = 'userType';
+  static const String candidateType = 'candidate';
+  static const String recruiterType = 'recruiter';
+
+  static Future<String?> getUserType() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(userTypeKey);
+  }
+
+  static Future<void> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(userTypeKey);
+  }
+
   Future<bool> signUpRecruiter(
       {required Recruiter recruiter, required BuildContext context}) async {
     bool isUSerCreated = false;
@@ -78,6 +88,8 @@ class AuthRepo {
         var res = await response.stream.bytesToString();
 
         isLoggedIn = true;
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString(userTypeKey, 'recruiter');
 
         try {
           // Decode JWT and store it securely
@@ -160,6 +172,8 @@ class AuthRepo {
         var res = await response.stream.bytesToString();
 
         isLoggedIn = true;
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString(userTypeKey, 'candidate');
 
         try {
           // Decode JWT and store it securely
@@ -183,4 +197,10 @@ class AuthRepo {
 
     return isLoggedIn;
   }
+}
+
+Future<String?> decodeTokken() async {
+  const storage = FlutterSecureStorage();
+  final jwtToken = await storage.read(key: 'jwtToken');
+  return jwtToken;
 }

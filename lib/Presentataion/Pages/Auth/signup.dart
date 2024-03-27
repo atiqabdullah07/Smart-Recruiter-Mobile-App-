@@ -141,6 +141,9 @@ class _SignUpState extends State<SignUp> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
+                        SizedBox(
+                          height: 200,
+                        )
                       ],
                     )
                   ],
