@@ -7,9 +7,7 @@ import 'package:get/get.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/My%20Profile/edit_customer_profile.dart';
 
-import 'package:smart_recruiter/Presentataion/Pages/Others/Category%20Page/categorey.dart';
 import 'package:smart_recruiter/Repository/GetX%20Controllers/candidate_controller.dart';
-import 'package:smart_recruiter/Repository/auth_repo.dart';
 
 class CustomerProfile extends StatefulWidget {
   const CustomerProfile({super.key});

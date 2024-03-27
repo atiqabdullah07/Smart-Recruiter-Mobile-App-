@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:smart_recruiter/Business%20Logic/Get%20All%20Jobs/get_all_jobs_bloc.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Candidate/job_details.dart';
 
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/search_job.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/cards.dart';
@@ -219,7 +220,15 @@ class _CandidateDashboardState extends State<CandidateDashboard> {
                                 companyLogo:
                                     GetJobs.allJobs[index].companyLogo!,
                                 job: GetJobs.allJobs[index],
-                                applyOnPress: () {});
+                                applyOnPress: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => JobDetails(
+                                              job: GetJobs.allJobs[index],
+                                            )),
+                                  );
+                                });
                           },
                         ),
                         SizedBox(

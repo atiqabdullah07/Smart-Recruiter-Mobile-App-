@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_recruiter/Business%20Logic/Recruiter%20Jobs/recruiter_jobs_bloc.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Recruiter/job_tab_bar.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Recruiter/recruiter_profile.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/cards.dart';
 
@@ -51,16 +52,28 @@ class _RecruiterDashboardState extends State<RecruiterDashboard> {
                                         const RecruiterProfile()),
                               );
                             },
-                            child: CircleAvatar(
-                              radius: 40.r,
-                              backgroundColor: AppColors.blue,
-                              child: CircleAvatar(
-                                radius: 38.r,
-                                backgroundColor: AppColors.supportiveGrey,
-                                backgroundImage:
-                                    NetworkImage(GetJobs.companyLogo),
-                              ),
-                            ),
+                            child: GetJobs.companyLogo == '' ||
+                                    GetJobs.companyLogo == 'null'
+                                ? CircleAvatar(
+                                    radius: 40.r,
+                                    backgroundColor:
+                                        AppColors.teal.withOpacity(0.2),
+                                    child: Icon(
+                                      Icons.person,
+                                      size: 40.r,
+                                      color: AppColors.blue,
+                                    ),
+                                  )
+                                : CircleAvatar(
+                                    radius: 40.r,
+                                    backgroundColor: AppColors.blue,
+                                    child: CircleAvatar(
+                                      radius: 38.r,
+                                      backgroundColor: AppColors.supportiveGrey,
+                                      backgroundImage:
+                                          NetworkImage(GetJobs.companyLogo),
+                                    ),
+                                  ),
                           ),
                           SizedBox(
                             width: 10.w,
@@ -118,6 +131,12 @@ class _RecruiterDashboardState extends State<RecruiterDashboard> {
                                 companyName: GetJobs.name,
                                 date: GetJobs.myJobs[index].createdAt!,
                                 companyLogo: GetJobs.companyLogo,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => JobsTabBar()));
+                                },
                               );
                             }),
                       ),

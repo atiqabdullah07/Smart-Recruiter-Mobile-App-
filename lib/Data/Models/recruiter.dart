@@ -16,13 +16,7 @@ class Recruiter {
   List<Job>? jobs;
   int? v;
 
-  Recruiter(
-      { this.id,
-    this.name,
-     this.email,
- this.jobs,
- this.v,
-      this.password});
+  Recruiter({this.id, this.name, this.email, this.jobs, this.v, this.password});
 
   factory Recruiter.fromJson(Map<String, dynamic> json) => Recruiter(
         id: json["_id"],
@@ -46,7 +40,7 @@ class Job {
   String title;
   String owner;
   DateTime createdAt;
-  List<Applicant> applicants;
+  //List<Applicant> applicants;
   int v;
   String? descriptionFile;
 
@@ -55,7 +49,7 @@ class Job {
     required this.title,
     required this.owner,
     required this.createdAt,
-    required this.applicants,
+    // required this.applicants,
     required this.v,
     this.descriptionFile,
   });
@@ -65,8 +59,8 @@ class Job {
         title: json["title"],
         owner: json["owner"],
         createdAt: DateTime.parse(json["createdAt"]),
-        applicants: List<Applicant>.from(
-            json["applicants"].map((x) => Applicant.fromJson(x))),
+        // applicants: List<Applicant>.from(
+        //     json["applicants"].map((x) => Applicant.fromJson(x))),
         v: json["__v"],
         descriptionFile: json["descriptionFile"],
       );
@@ -76,32 +70,32 @@ class Job {
         "title": title,
         "owner": owner,
         "createdAt": createdAt.toIso8601String(),
-        "applicants": List<dynamic>.from(applicants.map((x) => x.toJson())),
+        // "applicants": List<dynamic>.from(applicants.map((x) => x.toJson())),
         "__v": v,
         "descriptionFile": descriptionFile,
       };
 }
 
-class Applicant {
-  String applicant;
-  String id;
-  String? resumeFile;
+// class Applicant {
+//   String applicant;
+//   String id;
+//   String? resumeFile;
 
-  Applicant({
-    required this.applicant,
-    required this.id,
-    this.resumeFile,
-  });
+//   Applicant({
+//     required this.applicant,
+//     required this.id,
+//     this.resumeFile,
+//   });
 
-  factory Applicant.fromJson(Map<String, dynamic> json) => Applicant(
-        applicant: json["applicant"],
-        id: json["_id"],
-        resumeFile: json["resumeFile"],
-      );
+//   factory Applicant.fromJson(Map<String, dynamic> json) => Applicant(
+//         applicant: json["applicant"],
+//         id: json["_id"],
+//         resumeFile: json["resumeFile"],
+//       );
 
-  Map<String, dynamic> toJson() => {
-        "applicant": applicant,
-        "_id": id,
-        "resumeFile": resumeFile,
-      };
-}
+//   Map<String, dynamic> toJson() => {
+//         "applicant": applicant,
+//         "_id": id,
+//         "resumeFile": resumeFile,
+//       };
+// }

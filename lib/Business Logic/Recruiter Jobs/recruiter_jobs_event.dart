@@ -4,3 +4,5 @@ part of 'recruiter_jobs_bloc.dart';
 sealed class RecruiterJobsEvent {}
 
 class GetJobsEvent extends RecruiterJobsEvent {}
+
+class GetApplicantsEvent extends RecruiterJobsEvent {}

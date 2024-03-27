@@ -441,6 +441,7 @@ class RecruiterJobsCard extends StatelessWidget {
       required this.jobType,
       required this.companyName,
       required this.date,
+      required this.onTap,
       required this.companyLogo});
 
   final String jobTitle;
@@ -448,6 +449,7 @@ class RecruiterJobsCard extends StatelessWidget {
   final String companyName;
   final String date;
   final String companyLogo;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -583,11 +585,14 @@ class RecruiterJobsCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(100),
                       ),
                       child: Center(
-                        child: Text(
-                          "View Status",
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: AppColors.black,
+                        child: GestureDetector(
+                          onTap: onTap,
+                          child: Text(
+                            "View Status",
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: AppColors.black,
+                            ),
                           ),
                         ),
                       ),

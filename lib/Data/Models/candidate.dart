@@ -3,6 +3,7 @@ class Candidate {
   String? name;
   String? email;
   String? password;
+  String? profilePic;
 
-  Candidate({this.id, this.name, this.email, this.password});
+  Candidate({this.id, this.name, this.email, this.password, this.profilePic});
 }

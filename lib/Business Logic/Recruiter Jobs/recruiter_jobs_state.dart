@@ -12,3 +12,9 @@ class GetPostsSuccessState extends RecruiterJobsState {
 
   GetPostsSuccessState(this.myJobs, this.name, this.companyLogo);
 }
+
+class GetApplicantsSuccessState extends RecruiterJobsState {
+  final List<Applicant> applicants;
+
+  GetApplicantsSuccessState(this.applicants);
+}
