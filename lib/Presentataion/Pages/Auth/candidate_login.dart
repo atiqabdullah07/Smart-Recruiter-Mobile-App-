@@ -24,6 +24,7 @@ class _CandidateLoginState extends State<CandidateLogin> {
   TextEditingController emailController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -67,24 +68,55 @@ class _CandidateLoginState extends State<CandidateLogin> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(
-                      height: 40.h,
-                    ),
-                    CustomTextField(
-                        obsecureText: false,
-                        controller: emailController,
-                        hintText: "Enter your Email",
-                        svgPath: "assets/icons/sms.svg"),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    CustomTextField(
-                        obsecureText: true,
-                        controller: passwordController,
-                        hintText: "Enter your Password",
-                        svgPath: "assets/icons/Lock.svg"),
-                    SizedBox(
-                      height: 10.h,
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 40.h,
+                          ),
+                          CustomTextField(
+                            obsecureText: false,
+                            controller: emailController,
+                            hintText: "Enter your Email",
+                            svgPath: "assets/icons/sms.svg",
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please Enter Email';
+                              }
+
+                              String emailRegex =
+                                  r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
+                              RegExp regex = RegExp(emailRegex);
+
+                              if (!regex.hasMatch(value)) {
+                                return 'Please Enter a Valid Email';
+                              }
+
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          CustomTextField(
+                            obsecureText: true,
+                            controller: passwordController,
+                            hintText: "Enter your Password",
+                            svgPath: "assets/icons/Lock.svg",
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Enter a password';
+                              }
+
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                        ],
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -102,15 +134,17 @@ class _CandidateLoginState extends State<CandidateLogin> {
                     CustomButton(
                       title: "Login to your account",
                       onPress: () {
-                        context.read<CandidateLoginBloc>().add(
-                            CandidateLoginClickEvent(emailController.text,
-                                passwordController.text, context));
+                        if (_formKey.currentState!.validate()) {
+                          context.read<CandidateLoginBloc>().add(
+                              CandidateLoginClickEvent(emailController.text,
+                                  passwordController.text, context));
+                        }
                       },
                     ),
                     SizedBox(
                       height: 20.h,
                     ),
-                    googleLogin(title: "Login with google", onTap: () {  }),
+                    googleLogin(title: "Login with google", onTap: () {}),
                     SizedBox(
                       height: 60.h,
                     ),

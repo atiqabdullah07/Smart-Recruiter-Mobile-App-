@@ -4,15 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
+
 import 'package:smart_recruiter/Business%20Logic/Get%20All%20Jobs/get_all_jobs_bloc.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Candidate/My%20Profile/edit_customer_profile.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/all_jobs.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/job_details.dart';
 
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/search_job.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/cards.dart';
-import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
+
 import 'package:smart_recruiter/Repository/GetX%20Controllers/candidate_controller.dart';
 
 class CandidateDashboard extends StatefulWidget {
@@ -60,16 +61,49 @@ class _CandidateDashboardState extends State<CandidateDashboard> {
                               Obx(() {
                                 return Row(
                                   children: [
-                                    CircleAvatar(
-                                      radius: 40.r,
-                                      backgroundColor: AppColors.blue,
-                                      child: CircleAvatar(
-                                        radius: 38.r,
-                                        backgroundColor:
-                                            AppColors.supportiveGrey,
-                                        backgroundImage: NetworkImage(
-                                            _candidateController
-                                                .profilePic.value),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    EditCandidateProfile()));
+                                      },
+                                      child: Row(
+                                        children: [
+                                          _candidateController
+                                                          .profilePic.value ==
+                                                      '' ||
+                                                  _candidateController
+                                                          .profilePic.value ==
+                                                      'null'
+                                              ? CircleAvatar(
+                                                  radius: 40.r,
+                                                  backgroundColor: AppColors
+                                                      .teal
+                                                      .withOpacity(0.2),
+                                                  child: Icon(
+                                                    Icons.person,
+                                                    size: 38.r,
+                                                    color: AppColors.blue,
+                                                  ),
+                                                )
+                                              : CircleAvatar(
+                                                  radius: 40.r,
+                                                  backgroundColor:
+                                                      AppColors.blue,
+                                                  child: CircleAvatar(
+                                                    radius: 38.r,
+                                                    backgroundColor:
+                                                        Colors.grey.shade100,
+                                                    backgroundImage:
+                                                        NetworkImage(
+                                                            _candidateController
+                                                                .profilePic
+                                                                .value),
+                                                  ),
+                                                ),
+                                        ],
                                       ),
                                     ),
                                     SizedBox(

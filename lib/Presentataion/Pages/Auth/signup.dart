@@ -28,6 +28,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController passwordController = TextEditingController();
 
   TextEditingController confirmPasswordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
   // Future<void> _handleSignIn(BuildContext context) async {
@@ -82,51 +83,102 @@ class _SignUpState extends State<SignUp> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(
-                      height: 40.h,
-                    ),
-                    CustomTextField(
-                        obsecureText: false,
-                        controller: usernameController,
-                        hintText: "Enter your Full Name",
-                        svgPath: "assets/icons/user.svg"),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    CustomTextField(
-                        obsecureText: false,
-                        controller: emailController,
-                        hintText: "Enter your Email",
-                        svgPath: "assets/icons/sms.svg"),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    CustomTextField(
-                        obsecureText: true,
-                        controller: passwordController,
-                        hintText: "Enter your Password",
-                        svgPath: "assets/icons/Lock.svg"),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    CustomTextField(
-                        obsecureText: true,
-                        controller: confirmPasswordController,
-                        hintText: "Confirm Password",
-                        svgPath: "assets/icons/Lock.svg"),
-                    SizedBox(
-                      height: 50.h,
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 40.h,
+                          ),
+                          CustomTextField(
+                            obsecureText: false,
+                            controller: usernameController,
+                            hintText: "Enter your Company Name",
+                            svgPath: "assets/icons/user.svg",
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please Enter Company Name';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 12.h,
+                          ),
+                          CustomTextField(
+                            obsecureText: false,
+                            controller: emailController,
+                            hintText: "Enter your Email",
+                            svgPath: "assets/icons/sms.svg",
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please Enter Email';
+                              }
+
+                              String emailRegex =
+                                  r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
+                              RegExp regex = RegExp(emailRegex);
+
+                              if (!regex.hasMatch(value)) {
+                                return 'Please Enter a Valid Email';
+                              }
+
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 12.h,
+                          ),
+                          CustomTextField(
+                            obsecureText: true,
+                            controller: passwordController,
+                            hintText: "Enter your Password",
+                            svgPath: "assets/icons/Lock.svg",
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Enter a password';
+                              }
+
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 12.h,
+                          ),
+                          CustomTextField(
+                            obsecureText: true,
+                            controller: confirmPasswordController,
+                            hintText: "Confirm Password",
+                            svgPath: "assets/icons/Lock.svg",
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Confirm Password';
+                              } else if (passwordController.text !=
+                                  confirmPasswordController.text) {
+                                return 'Password does not match';
+                              }
+
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 50.h,
+                          ),
+                        ],
+                      ),
                     ),
                     CustomButton(
                       title: "Create Account",
                       onPress: () {
-                        context.read<RecruiterSignupBloc>().add(
-                            SignUpClicedEvent(
-                                usernameController.text,
-                                emailController.text,
-                                passwordController.text,
-                                confirmPasswordController.text,
-                                context));
+                        if (_formKey.currentState!.validate()) {
+                          context.read<RecruiterSignupBloc>().add(
+                              SignUpClicedEvent(
+                                  usernameController.text,
+                                  emailController.text,
+                                  passwordController.text,
+                                  confirmPasswordController.text,
+                                  context));
+                        }
                       },
                     ),
                     SizedBox(
@@ -140,7 +192,7 @@ class _SignUpState extends State<SignUp> {
                           repo.continueWithGoogle(context);
                         }),
                     SizedBox(
-                      height: 60.h,
+                      height: 10.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

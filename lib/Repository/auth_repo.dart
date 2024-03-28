@@ -25,8 +25,10 @@ class AuthRepo {
   }
 
   static Future<void> logout() async {
+    easyLoading();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(userTypeKey);
+    EasyLoading.dismiss();
   }
 
   Future<void> continueWithGoogle(BuildContext context) async {
