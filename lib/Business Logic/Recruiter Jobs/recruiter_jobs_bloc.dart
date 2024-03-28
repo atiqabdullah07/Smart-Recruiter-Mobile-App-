@@ -7,10 +7,8 @@ import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Constants/helper_methods.dart';
 import 'package:smart_recruiter/Data/Models/applicants.dart';
 import 'package:smart_recruiter/Data/Models/job.dart';
-import 'package:smart_recruiter/Data/Models/recruiter.dart';
 import 'package:smart_recruiter/Repository/auth_repo.dart';
 import 'package:http/http.dart' as http;
-import 'package:smart_recruiter/Repository/candidate_repo.dart';
 
 part 'recruiter_jobs_event.dart';
 part 'recruiter_jobs_state.dart';
@@ -23,14 +21,14 @@ class RecruiterJobsBloc extends Bloc<RecruiterJobsEvent, RecruiterJobsState> {
 
     on<GetApplicantsEvent>(_GetApplicantsEvent);
   }
+  List<Job1> myJobs = [];
+
+  String profilePic = '';
+  String companyName = '';
 
   FutureOr<void> _getJobsEvent(
       GetJobsEvent event, Emitter<RecruiterJobsState> emit) async {
-    List<Job1> myJobs = [];
-    List<Applicant> applicants = [];
-
-    String profilePic = '';
-    String companyName = '';
+    print('Method Called');
     try {
       var jwtToken = await decodeTokken();
 
@@ -55,14 +53,14 @@ class RecruiterJobsBloc extends Bloc<RecruiterJobsEvent, RecruiterJobsState> {
         profilePic = responseData['recruiter']['avatar'];
 
         print(responseData);
+        myJobs.clear();
 
         for (int i = 0; i < responseData['recruiter']['jobs'].length; i++) {
           print("loop");
 
-          applicants.add(Applicant());
-
           myJobs.add(
             Job1(
+                id: responseData['recruiter']['jobs'][i]['_id'],
                 title: responseData['recruiter']['jobs'][i]['title'],
                 descriptionFile: responseData['recruiter']['jobs'][i]
                     ['descriptionFile'],
@@ -92,6 +90,8 @@ class RecruiterJobsBloc extends Bloc<RecruiterJobsEvent, RecruiterJobsState> {
   FutureOr<void> _GetApplicantsEvent(
       GetApplicantsEvent event, Emitter<RecruiterJobsState> emit) async {
     List<Applicant> applicants = [];
+    // applicants.clear();
+    print('Job ID ${event.jobID}');
 
     try {
       var jwtToken = await decodeTokken();
@@ -101,7 +101,9 @@ class RecruiterJobsBloc extends Bloc<RecruiterJobsEvent, RecruiterJobsState> {
         'Cookie': 'token=$jwtToken'
       };
       var request = http.Request(
-          'GET', Uri.parse('http://$hostName:3000/api/v1/recruiter/myprofile'));
+          'GET',
+          Uri.parse(
+              'http://$hostName:3000/api/v1/job/getJobById/${event.jobID}'));
 
       request.headers.addAll(headers);
       print(" Hello");
@@ -113,27 +115,20 @@ class RecruiterJobsBloc extends Bloc<RecruiterJobsEvent, RecruiterJobsState> {
         // print(res);
         Map<String, dynamic> responseData = jsonDecode(res);
 
-        for (int i = 0; i < responseData['recruiter']['jobs'].length; i++) {
-          var resumeScore = responseData['recruiter']['jobs'][i]["applicants"]
-              [i]['resumeAnalysisScore'];
-          var applicantsLength =
-              responseData['recruiter']['jobs'][i]["applicants"].length;
+        print(responseData['job']['applicants'][0]['applicant']['name']);
+        applicants.clear();
 
-          for (int j = 0; j < applicantsLength; j++) {
-            var applicantId = responseData['recruiter']['jobs'][i]["applicants"]
-                [j]['applicant'];
-
-            var applicant = await getCandidateById(id: applicantId);
-
-            print('Applicant name: ${applicant.name}');
-            applicants.add(
-              Applicant(
-                  id: applicantId,
-                  name: applicant.name,
-                  picture: applicant.profilePic,
-                  score: resumeScore),
-            );
-          }
+        for (int i = 0; i < responseData['job']['applicants'].length; i++) {
+          applicants.add(
+            Applicant(
+              id: responseData['job']['applicants'][i]['applicant']['_id'],
+              name: responseData['job']['applicants'][i]['applicant']['name'],
+              picture: responseData['job']['applicants'][i]['applicant']
+                  ['avatar'],
+              score: responseData['job']['applicants'][i]
+                  ['resumeAnalysisScore'],
+            ),
+          );
         }
       } else {
         print(response.reasonPhrase);
@@ -141,6 +136,7 @@ class RecruiterJobsBloc extends Bloc<RecruiterJobsEvent, RecruiterJobsState> {
     } catch (error) {
       print("Get Profile Error: $error");
     }
+
     emit(GetApplicantsSuccessState(applicants));
   }
 }

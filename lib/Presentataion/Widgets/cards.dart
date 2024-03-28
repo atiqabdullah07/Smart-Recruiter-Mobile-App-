@@ -616,6 +616,7 @@ class ColorfullCard extends StatelessWidget {
       required this.jobType,
       required this.companyName,
       required this.date,
+      required this.isApplied,
       required this.job,
       required this.companyLogo,
       required this.applyOnPress});
@@ -625,6 +626,7 @@ class ColorfullCard extends StatelessWidget {
   final String jobType;
   final String companyName;
   final String date;
+  final bool isApplied;
   final Job1 job;
   final String companyLogo;
   final VoidCallback applyOnPress;
@@ -780,12 +782,14 @@ class ColorfullCard extends StatelessWidget {
                       height: 40.h,
                       width: 90.w,
                       decoration: BoxDecoration(
-                        color: AppColors.black.withOpacity(0.9),
+                        color: isApplied == false
+                            ? AppColors.black.withOpacity(0.9)
+                            : Colors.grey,
                         borderRadius: BorderRadius.circular(100),
                       ),
                       child: Center(
                         child: Text(
-                          "Apply",
+                          isApplied == false ? "Apply" : 'Applied',
                           style: TextStyle(
                             fontSize: 12.sp,
                             color: AppColors.white,

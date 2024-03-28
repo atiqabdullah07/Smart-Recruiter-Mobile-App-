@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_recruiter/Business%20Logic/Recruiter%20Jobs/recruiter_jobs_bloc.dart';
 
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Recruiter/applicants.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Recruiter/recruiter_job_details.dart';
 
 class JobsTabBar extends StatelessWidget {
-  const JobsTabBar({super.key});
+  const JobsTabBar({super.key, required this.id});
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +16,12 @@ class JobsTabBar extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                context.read<RecruiterJobsBloc>().add(GetJobsEvent());
+              },
+              icon: Icon(Icons.arrow_back_ios)),
           backgroundColor: AppColors.backgroundColor,
           elevation: 0,
           title: const Text('Job Details'),
@@ -65,8 +74,12 @@ class JobsTabBar extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            RecruiterJobDetails(),
-            ApplicantsScreen(),
+            RecruiterJobDetails(
+              jobId: id,
+            ),
+            ApplicantsScreen(
+              id: id,
+            ),
           ],
         ),
       ),

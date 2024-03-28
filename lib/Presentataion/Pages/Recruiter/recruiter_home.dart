@@ -2,10 +2,12 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 
 import 'package:flutter_svg/svg.dart';
+import 'package:smart_recruiter/Business%20Logic/Recruiter%20Jobs/recruiter_jobs_bloc.dart';
 
 import 'package:smart_recruiter/Constants/app_constants.dart';
 
@@ -27,6 +29,8 @@ class _RecruiterHomeState extends State<RecruiterHome>
 
   @override
   void initState() {
+    context.read<RecruiterJobsBloc>().add(GetJobsEvent());
+
     currentPage = 0;
     tabController = TabController(length: 3, vsync: this);
     tabController.animation!.addListener(

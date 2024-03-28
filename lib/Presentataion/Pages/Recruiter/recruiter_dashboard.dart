@@ -132,10 +132,16 @@ class _RecruiterDashboardState extends State<RecruiterDashboard> {
                                 date: GetJobs.myJobs[index].createdAt!,
                                 companyLogo: GetJobs.companyLogo,
                                 onTap: () {
+                                  print(
+                                    GetJobs.myJobs[index].id.toString(),
+                                  );
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => JobsTabBar()));
+                                          builder: (context) => JobsTabBar(
+                                                id: GetJobs.myJobs[index].id
+                                                    .toString(),
+                                              )));
                                 },
                               );
                             }),

@@ -4,12 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:smart_recruiter/Business%20Logic/Get%20All%20Jobs/get_all_jobs_bloc.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Candidate/all_jobs.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/job_details.dart';
 
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/search_job.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/cards.dart';
+import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
 import 'package:smart_recruiter/Repository/GetX%20Controllers/candidate_controller.dart';
 
 class CandidateDashboard extends StatefulWidget {
@@ -183,7 +186,16 @@ class _CandidateDashboardState extends State<CandidateDashboard> {
                               SizedBox(
                                 height: 15,
                               ),
-                              headingRow(title: "Recent jobs", onPress: () {}),
+                              headingRow(
+                                  title: "Recent jobs",
+                                  onPress: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AllJobsPage(),
+                                      ),
+                                    );
+                                  }),
                             ],
                           ),
                         ),

@@ -10,6 +10,8 @@ import 'package:smart_recruiter/Presentataion/Pages/Auth/login.dart';
 
 import 'package:smart_recruiter/Presentataion/Widgets/custom_textfield.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:smart_recruiter/Repository/auth_repo.dart';
 
 class SignUp extends StatefulWidget {
   SignUp({super.key});
@@ -26,6 +28,17 @@ class _SignUpState extends State<SignUp> {
   TextEditingController passwordController = TextEditingController();
 
   TextEditingController confirmPasswordController = TextEditingController();
+
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  // Future<void> _handleSignIn(BuildContext context) async {
+  //   try {
+  //     await googleSignIn.signIn();
+  //     // Authentication successful, navigate to the next screen or perform necessary actions
+  //   } catch (error) {
+  //     print(error);
+  //     // Handle error
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +132,13 @@ class _SignUpState extends State<SignUp> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    googleLogin(title: "SignUp with google"),
+                    googleLogin(
+                        title: "SignUp with google",
+                        onTap: () {
+                          AuthRepo repo = AuthRepo();
+
+                          repo.continueWithGoogle(context);
+                        }),
                     SizedBox(
                       height: 60.h,
                     ),

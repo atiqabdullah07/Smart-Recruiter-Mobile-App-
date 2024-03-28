@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
@@ -16,6 +17,7 @@ class AuthRepo {
   static const String userTypeKey = 'userType';
   static const String candidateType = 'candidate';
   static const String recruiterType = 'recruiter';
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   static Future<String?> getUserType() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -25,6 +27,36 @@ class AuthRepo {
   static Future<void> logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(userTypeKey);
+  }
+
+  Future<void> continueWithGoogle(BuildContext context) async {
+    try {
+      GoogleSignInAccount? account = await googleSignIn.signIn();
+      if (account != null) {
+        // Successfully signed in, get user details
+        String displayName = account.displayName!;
+        String email = account.email!;
+        String photoUrl = account.photoUrl!;
+
+        // Obtain access token
+        GoogleSignInAuthentication googleAuth = await account.authentication;
+        String accessToken = googleAuth.accessToken!;
+
+        // Proceed with the authenticated user
+
+        print('..........');
+        print('..........');
+        print('..........');
+        print('Access Token: $accessToken');
+        print('..........');
+        print('..........');
+        print("My Name");
+        print(displayName);
+      }
+    } catch (error) {
+      print(error);
+      // Handle error
+    }
   }
 
   Future<bool> signUpRecruiter(

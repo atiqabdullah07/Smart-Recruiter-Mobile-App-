@@ -121,7 +121,7 @@ class _CandidateSignUpState extends State<CandidateSignUp> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    googleLogin(title: "SignUp with google"),
+                    googleLogin(title: "SignUp with google", onTap: () {}),
                     SizedBox(
                       height: 60.h,
                     ),

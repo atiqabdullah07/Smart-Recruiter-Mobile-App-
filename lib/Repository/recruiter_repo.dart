@@ -155,7 +155,8 @@ class RecruiterRepo {
 }
 
 Future<String> uploadFile(String filePath) async {
-  print("API Called");
+  print("File Uploading");
+  easyLoading();
   String? url = '';
   try {
     var request = http.MultipartRequest(
@@ -179,9 +180,12 @@ Future<String> uploadFile(String filePath) async {
     } else {
       print('File upload failed. Status code: ${response.statusCode}');
       print(await response.stream.bytesToString());
+      EasyLoading.dismiss();
     }
   } catch (error) {
     print('Error during file upload: $error');
+    EasyLoading.dismiss();
   }
+  EasyLoading.dismiss();
   return url!;
 }

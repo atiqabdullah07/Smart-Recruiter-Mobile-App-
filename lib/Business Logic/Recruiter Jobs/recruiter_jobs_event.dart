@@ -5,4 +5,8 @@ sealed class RecruiterJobsEvent {}
 
 class GetJobsEvent extends RecruiterJobsEvent {}
 
-class GetApplicantsEvent extends RecruiterJobsEvent {}
+class GetApplicantsEvent extends RecruiterJobsEvent {
+  final String jobID;
+
+  GetApplicantsEvent({required this.jobID});
+}

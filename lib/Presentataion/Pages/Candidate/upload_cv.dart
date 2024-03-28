@@ -1,6 +1,8 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_recruiter/Business%20Logic/Get%20All%20Jobs/get_all_jobs_bloc.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
 import 'package:smart_recruiter/Repository/candidate_repo.dart';
@@ -123,26 +125,37 @@ class _UploadCVState extends State<UploadCV> {
             height: 300,
           ),
           Center(
-              child: CustomButton(
-                  title: "Apply Now",
-                  onPress: () async {
-                    String fileName =
-                        await uploadFile(pickedFilePath.toString());
+            child: result == null
+                ? CustomButton(
+                    title: 'Apply Now',
+                    onPress: () {},
+                    color: Colors.grey,
+                  )
+                : CustomButton(
+                    title: "Apply Now",
+                    onPress: () async {
+                      String fileName =
+                          await uploadFile(pickedFilePath.toString());
 
-                    CandidateRepo repo = CandidateRepo();
-                    var isApplied = await repo.applyJob(
-                        filePath: fileName, jobID: widget.jobID);
-                    if (isApplied == true) {
-                      Navigator.of(context).pop();
-                      showDialog(
-                        context: context,
-                        builder: (context) => CustomDialogWidget(
-                            title: 'Profile Updated',
-                            message:
-                                'Your Profile has been Updated Successfully'),
-                      );
-                    }
-                  }))
+                      CandidateRepo repo = CandidateRepo();
+                      var isApplied = await repo.applyJob(
+                          filePath: fileName, jobID: widget.jobID);
+                      if (isApplied == true) {
+                        Navigator.of(context).pop();
+                        showDialog(
+                          context: context,
+                          builder: (context) => CustomDialogWidget(
+                              title: 'Applied Successfully',
+                              message:
+                                  'Your Resume has been received. Please wait for the Updates'),
+                        );
+                        context
+                            .read<GetAllJobsBloc>()
+                            .add(GetJobsClickedEvent());
+                      }
+                    },
+                  ),
+          )
         ]),
       ),
     );

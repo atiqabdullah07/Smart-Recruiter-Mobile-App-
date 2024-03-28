@@ -74,6 +74,7 @@ class _AllJobsPageState extends State<AllJobsPage> {
                             );
                           },
                           job: GetJobs.allJobs[index],
+                          isApplied: GetJobs.allJobs[index].isApplied!,
                         ),
                       );
                     }),

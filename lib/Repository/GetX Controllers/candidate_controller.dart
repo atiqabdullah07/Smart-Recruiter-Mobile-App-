@@ -13,6 +13,7 @@ class CandidateController extends GetxController {
   RxString profilePic = ''.obs;
   RxString name = ''.obs;
   RxString email = ''.obs;
+  RxString candidateID = ''.obs;
 
   final carouselIndex = 0.obs;
   @override
@@ -51,6 +52,7 @@ class CandidateController extends GetxController {
         profilePic.value = await responseData['candidate']['avatar'].toString();
         name.value = await responseData['candidate']['name'];
         email.value = await responseData['candidate']['email'];
+        candidateID.value = await responseData['candidate']['_id'];
         print(profilePic);
       } else {
         print(response.reasonPhrase);

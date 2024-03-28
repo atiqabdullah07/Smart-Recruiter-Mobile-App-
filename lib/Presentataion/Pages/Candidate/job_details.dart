@@ -164,15 +164,21 @@ class JobDetails extends StatelessWidget {
             ),
             Center(
               child: CustomButton(
-                title: "Apply Now",
-                onPress: () {
-                  print(job.id);
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => UploadCV(
-                            jobID: job.id.toString(),
-                          )));
-                },
-                nextIcon: true,
+                title: job.isApplied == false ? "Apply Now" : 'Already Applied',
+                color: job.isApplied == false ? AppColors.black : Colors.grey,
+                onPress: job.isApplied == false
+                    ? () {
+                        print(job.id);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => UploadCV(
+                              jobID: job.id.toString(),
+                            ),
+                          ),
+                        );
+                      }
+                    : () {},
+                nextIcon: job.isApplied == false ? true : false,
               ),
             ),
             SizedBox(

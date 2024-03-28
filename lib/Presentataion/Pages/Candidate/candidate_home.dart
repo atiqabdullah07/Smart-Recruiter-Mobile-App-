@@ -2,10 +2,12 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 
 import 'package:flutter_svg/svg.dart';
+import 'package:smart_recruiter/Business%20Logic/Get%20All%20Jobs/get_all_jobs_bloc.dart';
 
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Candidate/My%20Profile/candidate_profile.dart';
@@ -27,6 +29,7 @@ class _CandidateHomeState extends State<CandidateHome>
 
   @override
   void initState() {
+    context.read<GetAllJobsBloc>().add(GetJobsClickedEvent());
     currentPage = 0;
     tabController = TabController(length: 4, vsync: this);
     tabController.animation!.addListener(

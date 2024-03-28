@@ -142,6 +142,7 @@ class _SearchJobsState extends State<SearchJobs> {
                             );
                           },
                           job: GetJobs.allJobs[index],
+                          isApplied: false,
                         ),
                       );
                     }),

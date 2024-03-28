@@ -1,6 +1,9 @@
+
+
 class Job1 {
   String? id;
   String? title;
+  bool? isApplied;
   String? descriptionFile;
   String? jobType;
   String? experienceLevel;
@@ -13,6 +16,7 @@ class Job1 {
 
   Job1({
     this.id,
+    this.isApplied,
     this.title,
     this.descriptionFile,
     this.jobType,

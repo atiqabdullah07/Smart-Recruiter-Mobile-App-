@@ -5,7 +5,9 @@ import 'package:smart_recruiter/Business%20Logic/Recruiter%20Jobs/recruiter_jobs
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
 
 class RecruiterJobDetails extends StatelessWidget {
-  const RecruiterJobDetails({super.key});
+  const RecruiterJobDetails({super.key, required this.jobId});
+
+  final String jobId;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,9 @@ class RecruiterJobDetails extends StatelessWidget {
         child: CustomButton(
             title: 'Test',
             onPress: () {
-              context.read<RecruiterJobsBloc>().add(GetApplicantsEvent());
+              context
+                  .read<RecruiterJobsBloc>()
+                  .add(GetApplicantsEvent(jobID: jobId));
             }),
       ),
     );
