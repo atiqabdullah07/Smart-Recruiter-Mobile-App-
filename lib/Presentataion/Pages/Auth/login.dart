@@ -145,7 +145,7 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    googleLogin(title: "Login with google", onTap: () {}),
+                    // googleLogin(title: "Login with google", onTap: () {}),
                     SizedBox(
                       height: 60.h,
                     ),

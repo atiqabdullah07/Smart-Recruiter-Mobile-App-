@@ -51,7 +51,7 @@ class JobsTabBar extends StatelessWidget {
                         height: 50,
                         child: Center(
                           child: Text(
-                            "Job Details",
+                            "Applicants",
                             style:
                                 TextStyle(color: AppColors.black, fontSize: 16),
                           ),
@@ -61,7 +61,7 @@ class JobsTabBar extends StatelessWidget {
                         height: 50,
                         child: Center(
                           child: Text(
-                            "Applicants",
+                            "Job Details",
                             style:
                                 TextStyle(color: AppColors.black, fontSize: 16),
                           ),
@@ -74,11 +74,11 @@ class JobsTabBar extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            RecruiterJobDetails(
-              jobId: id,
-            ),
             ApplicantsScreen(
               id: id,
+            ),
+            RecruiterJobDetails(
+              jobId: id,
             ),
           ],
         ),

@@ -172,8 +172,8 @@ class JobsCard extends StatelessWidget {
                 Hero(
                   tag: job,
                   child: Container(
-                    height: 68.h,
-                    width: 63.w,
+                    height: 60.h,
+                    width: 60.w,
                     decoration: BoxDecoration(
                       image: DecorationImage(image: NetworkImage(companyLogo)),
                       color: Colors.white,

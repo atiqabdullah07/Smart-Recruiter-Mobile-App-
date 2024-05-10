@@ -45,7 +45,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         widget.controller.text = value;
       },
       validator: widget.validator,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: AutovalidateMode.disabled,
       cursorColor: AppColors.blue,
 
       decoration: InputDecoration(

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:smart_recruiter/Business%20Logic/Recruiter%20Jobs/recruiter_jobs_bloc.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Recruiter/job_tab_bar.dart';
 import 'package:smart_recruiter/Presentataion/Pages/Recruiter/recruiter_profile.dart';
+
 import 'package:smart_recruiter/Presentataion/Widgets/cards.dart';
+import 'package:smart_recruiter/Repository/GetX%20Controllers/recruiter_controller.dart';
 
 class RecruiterDashboard extends StatefulWidget {
   const RecruiterDashboard({super.key});
@@ -15,9 +20,12 @@ class RecruiterDashboard extends StatefulWidget {
 }
 
 class _RecruiterDashboardState extends State<RecruiterDashboard> {
+  final RecruiterController recruiterController =
+      Get.put(RecruiterController());
+
   void initState() {
     super.initState();
-
+    recruiterController.getRecruiterProfile();
     context.read<RecruiterJobsBloc>().add(GetJobsEvent());
   }
 
@@ -41,65 +49,69 @@ class _RecruiterDashboardState extends State<RecruiterDashboard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RecruiterProfile()),
-                              );
-                            },
-                            child: GetJobs.companyLogo == '' ||
-                                    GetJobs.companyLogo == 'null'
-                                ? CircleAvatar(
-                                    radius: 40.r,
-                                    backgroundColor:
-                                        AppColors.teal.withOpacity(0.2),
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 40.r,
-                                      color: AppColors.blue,
+                      Obx(() {
+                        return Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RecruiterProfile()),
+                                );
+                              },
+                              child: recruiterController.profilePic.value ==
+                                          '' ||
+                                      recruiterController.profilePic.value ==
+                                          'null'
+                                  ? CircleAvatar(
+                                      radius: 40.r,
+                                      backgroundColor:
+                                          AppColors.teal.withOpacity(0.2),
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 40.r,
+                                        color: AppColors.blue,
+                                      ),
+                                    )
+                                  : CircleAvatar(
+                                      radius: 40.r,
+                                      backgroundColor: AppColors.blue,
+                                      child: CircleAvatar(
+                                        radius: 38.r,
+                                        backgroundColor: AppColors.white,
+                                        backgroundImage:
+                                            NetworkImage(GetJobs.companyLogo),
+                                      ),
                                     ),
-                                  )
-                                : CircleAvatar(
-                                    radius: 40.r,
-                                    backgroundColor: AppColors.blue,
-                                    child: CircleAvatar(
-                                      radius: 38.r,
-                                      backgroundColor: AppColors.supportiveGrey,
-                                      backgroundImage:
-                                          NetworkImage(GetJobs.companyLogo),
-                                    ),
-                                  ),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Hello!",
-                                style: TextStyle(
-                                  color: AppColors.supportiveGrey,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              Text(
-                                GetJobs.name,
-                                style: TextStyle(
-                                    color: AppColors.black,
+                            ),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Hello!",
+                                  style: TextStyle(
+                                    color: AppColors.supportiveGrey,
                                     fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                                  ),
+                                ),
+                                Text(
+                                  recruiterController.name.value,
+                                  style: TextStyle(
+                                      color: AppColors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            )
+                          ],
+                        );
+                      }),
                       SizedBox(
                         height: 10.h,
                       ),

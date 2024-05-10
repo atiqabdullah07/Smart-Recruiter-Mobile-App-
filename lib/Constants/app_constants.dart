@@ -28,7 +28,7 @@ const cardColors = [
   Color(0xFFF8EEEE),
 ];
 
-String hostName = '192.168.61.120';
+String hostName = '192.168.61.119';
 // Defining these spaces so that we don't have to use SizedBox again and again
 Widget verticalSpace(double height) {
   return SizedBox(

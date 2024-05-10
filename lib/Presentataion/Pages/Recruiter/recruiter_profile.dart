@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
-import 'package:smart_recruiter/Presentataion/Pages/Candidate/My%20Profile/edit_customer_profile.dart';
 
-import 'package:smart_recruiter/Repository/GetX%20Controllers/candidate_controller.dart';
+import 'package:smart_recruiter/Presentataion/Pages/Recruiter/edit_recruiter_profile.dart';
+
+import 'package:smart_recruiter/Repository/GetX%20Controllers/recruiter_controller.dart';
 
 class RecruiterProfile extends StatefulWidget {
   const RecruiterProfile({super.key});
@@ -17,8 +18,8 @@ class RecruiterProfile extends StatefulWidget {
 }
 
 class _RecruiterProfileState extends State<RecruiterProfile> {
-  final CandidateController _candidateController =
-      Get.put(CandidateController());
+  final RecruiterController _candidateController =
+      Get.put(RecruiterController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _RecruiterProfileState extends State<RecruiterProfile> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const EditCandidateProfile()));
+                        builder: (context) => const EditRecruiterProfile()));
               },
               child: const Text(
                 'Edit Profile',

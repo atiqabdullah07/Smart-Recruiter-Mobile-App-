@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smart_recruiter/Constants/app_constants.dart';
 import 'package:smart_recruiter/Presentataion/Widgets/custom_widgets.dart';
-import 'package:smart_recruiter/Repository/GetX%20Controllers/candidate_controller.dart';
+
+import 'package:smart_recruiter/Repository/GetX%20Controllers/recruiter_controller.dart';
 
 class EditRecruiterProfile extends StatefulWidget {
   const EditRecruiterProfile({super.key});
@@ -18,8 +19,8 @@ class EditRecruiterProfile extends StatefulWidget {
 }
 
 class _EditRecruiterProfileState extends State<EditRecruiterProfile> {
-  final CandidateController _candidateController =
-      Get.put(CandidateController());
+  final RecruiterController _candidateController =
+      Get.put(RecruiterController());
 
   late TextEditingController nameController;
   late TextEditingController emailController;
@@ -167,21 +168,26 @@ class _EditRecruiterProfileState extends State<EditRecruiterProfile> {
                                 CustomButton(
                                   title: 'Save Changes',
                                   onPress: () async {
-                                    // if (_formKey.currentState!.validate()) {
-                                    //   await _customerProfileController
-                                    //       .updateCustomerProfile(
-                                    //           Customer(
-                                    //               name: nameController.text,
-                                    //               profilePhoto:
-                                    //                   _customerProfileController
-                                    //                       .customer
-                                    //                       .value
-                                    //                       .profilePhoto),
-                                    //           pickedImage);
+                                    if (_formKey.currentState!.validate()) {
+                                      bool isUpdated =
+                                          await _candidateController
+                                              .updateRecruiter(
+                                                  updatedName:
+                                                      nameController.text,
+                                                  filePath: pickedImage == null
+                                                      ? ''
+                                                      : pickedImage!.path);
 
-                                    //   await _customerProfileController
-                                    //       .getCustomer();
-                                    // }
+                                      if (isUpdated == true) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => CustomDialogWidget(
+                                              title: 'Profile Updated',
+                                              message:
+                                                  'Your Profile has been Updated Successfully'),
+                                        );
+                                      }
+                                    }
                                   },
                                 ),
                               ],
